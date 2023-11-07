@@ -1,4 +1,4 @@
-package com.example.wmhanaasri.Karyawan;
+package com.example.wmhanaasri;
 
 public class ListAktivitas {
     private String judul;

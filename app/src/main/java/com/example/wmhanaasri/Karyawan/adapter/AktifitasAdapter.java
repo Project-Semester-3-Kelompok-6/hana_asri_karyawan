@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wmhanaasri.Karyawan.ListAktivitas;
+import com.example.wmhanaasri.ListAktivitas;
 import com.example.wmhanaasri.R;
 
 import java.util.ArrayList;

@@ -25,7 +25,7 @@
             android:name=".Login.LoginActivity"
             android:exported="false"/>
         <activity
-            android:name=".Karyawan.MainActivity"
+            android:name=".Karyawan.KaryawanMainActivity"
             android:exported="false" />
         <activity
             android:name=".Login.LupaPasswordActivity"

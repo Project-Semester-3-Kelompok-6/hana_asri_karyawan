@@ -15,13 +15,13 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import com.example.wmhanaasri.Karyawan.adapter.ViewPagerAdapter;
 
-public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
+public class KaryawanMainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
     private BottomNavigationView bottomNavigationView;
     private HomeFragment homeFragment = new HomeFragment();
-    private TugasFragment tugasFragment = new TugasFragment();
-    private RekapFragment rekapFragment = new RekapFragment();
-    private KaryawanFragment karyawanFragment = new KaryawanFragment();
+    private AbsensiFragment tugasFragment = new AbsensiFragment();
+    private TugasFragment rekapFragment = new TugasFragment();
+    private IzinFragment karyawanFragment = new IzinFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

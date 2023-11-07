@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 
+import com.example.wmhanaasri.ListAktivitas;
+import com.example.wmhanaasri.PresensiFragment;
 import com.example.wmhanaasri.R;
 
 import java.util.ArrayList;
@@ -66,7 +68,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.karyawan_fragment_home, container, false);
         recyclerView = view.findViewById(R.id.recycle_viewHome);
 
         // Membuat objek ArrayList Aktifitas

@@ -6,9 +6,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.wmhanaasri.Karyawan.HomeFragment;
-import com.example.wmhanaasri.Karyawan.KaryawanFragment;
-import com.example.wmhanaasri.Karyawan.RekapFragment;
+import com.example.wmhanaasri.Karyawan.IzinFragment;
 import com.example.wmhanaasri.Karyawan.TugasFragment;
+import com.example.wmhanaasri.Karyawan.AbsensiFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter{
     public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity){
@@ -22,11 +22,11 @@ public class ViewPagerAdapter extends FragmentStateAdapter{
             case 0:
                 return new HomeFragment(); // Ganti dengan fragmen yang sesuai
             case 1:
-                return new TugasFragment();
+                return new AbsensiFragment();
             case 2:
-                return new RekapFragment();
+                return new TugasFragment();
             case 3:
-                return new KaryawanFragment();
+                return new IzinFragment();
         }
         return null;
     }

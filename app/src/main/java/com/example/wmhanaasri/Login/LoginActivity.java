@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 
-import com.example.wmhanaasri.Karyawan.MainActivity;
+import com.example.wmhanaasri.Karyawan.KaryawanMainActivity;
 import com.example.wmhanaasri.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
             buttonLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, KaryawanMainActivity.class);
                     startActivity(intent);
                 }
             });
