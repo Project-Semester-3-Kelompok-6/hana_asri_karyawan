@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:elevation="6dp"
-            android:text="Anda memberikan tugas baru: Upload menu baru"
+            android:text="Anda mendapatkan tugas baru: Menyiapkan IG Reel"
             android:textStyle="bold"
             card_view:layout_constraintTop_toTopOf="parent"
             card_view:layout_constraintStart_toEndOf="@id/profil"/>

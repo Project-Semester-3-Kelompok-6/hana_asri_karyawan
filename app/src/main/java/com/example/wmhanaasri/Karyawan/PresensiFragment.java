@@ -14,7 +14,7 @@ import com.example.wmhanaasri.R;
 
 import java.util.ArrayList;
 
-import com.example.wmhanaasri.adapter.PresensiAdapter;
+import com.example.wmhanaasri.Karyawan.adapter.PresensiAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

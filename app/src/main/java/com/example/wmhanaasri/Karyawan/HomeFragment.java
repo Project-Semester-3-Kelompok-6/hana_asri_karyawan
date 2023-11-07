@@ -18,7 +18,7 @@ import com.example.wmhanaasri.R;
 
 import java.util.ArrayList;
 
-import com.example.wmhanaasri.adapter.AktifitasAdapter;
+import com.example.wmhanaasri.Karyawan.adapter.AktifitasAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

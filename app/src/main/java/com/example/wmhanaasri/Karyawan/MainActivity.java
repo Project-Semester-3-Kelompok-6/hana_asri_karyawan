@@ -13,7 +13,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import com.example.wmhanaasri.adapter.ViewPagerAdapter;
+import com.example.wmhanaasri.Karyawan.adapter.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
