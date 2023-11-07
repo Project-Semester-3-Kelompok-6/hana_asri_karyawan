@@ -33,15 +33,10 @@ public class KaryawanMainActivity extends AppCompatActivity implements Navigatio
 
         //gawe swipe per fragment
         ViewPager2 viewPager = findViewById(R.id.view_pager);
-        TabLayout tabLayout = findViewById(R.id.tabs);
+
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(adapter);
-
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            // Setel teks tab sesuai dengan posisi
-            tab.setText("Tab " + (position + 1));
-        }).attach();
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
