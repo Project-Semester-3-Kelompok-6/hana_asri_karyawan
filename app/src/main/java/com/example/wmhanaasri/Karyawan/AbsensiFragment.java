@@ -32,9 +32,6 @@ public class AbsensiFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private RecyclerView recyclerView;
-    private AktifitasAdapter adapter;
-    private ArrayList<ListAktivitas> AktifitasArrayList;
 
     public AbsensiFragment() {
         // Required empty public constructor
@@ -70,39 +67,10 @@ public class AbsensiFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_tugas, container, false);
         View view = inflater.inflate(R.layout.karyawan_fragment_absensi, container, false);
-        recyclerView = view.findViewById(R.id.recycle_viewHome);
 
-        // Membuat objek ArrayList Aktifitas
-        AktifitasArrayList = new ArrayList<ListAktivitas>();
-
-        // Menambahkan data ke ArrayList Aktifitas
-        addData();
-
-        // Membuat dan mengatur adapter
-        adapter = new AktifitasAdapter(AktifitasArrayList);
-
-        // Membuat dan mengatur layout manager
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()); // Gunakan getActivity() karena Anda berada dalam fragmen
-
-        // Mengatur layout manager dan adapter untuk RecyclerView
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        // You can add any further initialization or UI setup code here
 
         return view;
-    }
-    void addData(){
-        AktifitasArrayList = new ArrayList<>();
-        AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Restok Bahan", "Rizqi", "15 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Restok Bahan", "Rizqi", "15 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Upload Feed IG", "Ramadhan", "16 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Upload Feed IG", "Ramadhan", "16 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Upload Feed IG", "Ramadhan", "16 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Upload Feed IG", "Ramadhan", "16 Oktober 2023"));
     }
 }

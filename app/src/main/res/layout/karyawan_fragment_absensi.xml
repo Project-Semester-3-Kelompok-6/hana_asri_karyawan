@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,70 +7,42 @@
     tools:context=".Karyawan.AbsensiFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <View
-        android:id="@+id/headerTugas"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@drawable/bg_orange"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center">
 
-    <TextView
-        android:id="@+id/txtTugas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_margin="10dp"
-        android:text="Tugas"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-
-        <TextView
-            android:id="@+id/btnDitugaskan"
+        <ImageButton
+            android:id="@+id/btn_lihat_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="80dp"
-            android:text="Ditugaskan"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnSelesai"
-            app:layout_constraintTop_toBottomOf="@id/txtTugas"/>
+            android:src="@drawable/izin_ic_absenmasuk"
+            android:contentDescription="Masuk menu lihat dan bisa edit"
+            android:onClick="btn_lihat_data"/>
 
-        <TextView
-            android:id="@+id/btnSelesai"
+        <ImageButton
+            android:id="@+id/btn_tambah_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="80dp"
-            android:text="Selesai"
-            app:layout_constraintStart_toEndOf="@id/btnDitugaskan"
-            app:layout_constraintEnd_toStartOf="@id/btnTerlambat"
-            app:layout_constraintTop_toBottomOf="@id/txtTugas" />
+            android:src="@drawable/izin_ic_absenmasuk"
+            android:contentDescription="Tambah Data Pengguna"
+            android:onClick="btn_tambah_data"/>
 
-        <TextView
-            android:id="@+id/btnTerlambat"
+        <ImageButton
+            android:id="@+id/btn_tentang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="80dp"
-            android:text="Terlambat"
-            app:layout_constraintStart_toEndOf="@id/btnSelesai"
-            app:layout_constraintEnd_toEndOf="@id/headerTugas"
-            app:layout_constraintTop_toBottomOf="@id/txtTugas"/>
+            android:src="@drawable/izin_ic_absenmasuk"
+            android:contentDescription="Tentang pembuat aplikasi"
+            android:onClick="btn_Tentang"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_viewHome"
-        android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/headerTugas"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</LinearLayout>
