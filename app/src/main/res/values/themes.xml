@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.WMHanaAsri" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#FF914C</item>
+        <item name="colorPrimaryVariant">#FFDE59</item>
+
+    </style>
+
+    <style name="Theme.WMHanaAsri" parent="Base.Theme.WMHanaAsri" />
+</resources>
