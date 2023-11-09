@@ -2,6 +2,7 @@ package com.example.wmhanaasri.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,35 +20,18 @@ import com.example.wmhanaasri.R;
 public class LoginActivity extends AppCompatActivity {
     Button buttonLogin;
     TextView textView;
-    EditText txtemail, txtpassword;
+    EditText etEmail, etPassword;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        txtemail = findViewById(R.id.email);
-        txtpassword = findViewById(R.id.password);
-        txtemail.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if(i == EditorInfo.IME_ACTION_NEXT){
-                    txtpassword.requestFocus();
-                    return true;
-                }
-                return false;
-            }
-        });
-        txtpassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if(i == EditorInfo.IME_ACTION_DONE || i == EditorInfo.IME_NULL){
-//                    btnlogin();
-                    return true;
-                }
-                return false;
-            }
-        });
+        etEmail = findViewById(R.id.etPassword);
+        etPassword = findViewById(R.id.etPassword);
+
+
 
         //text garis bawah & button lupa password
         textView = (TextView)findViewById(R.id.lupaPassword);
@@ -67,21 +51,10 @@ public class LoginActivity extends AppCompatActivity {
             buttonLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(LoginActivity.this, KaryawanMainActivity.class);
-                    startActivity(intent);
+                    String email = etEmail.getText().toString();
+                    String password = etPassword.getText().toString();
                 }
             });
-//
     }
-    //button login
-//    public void btnlogin(){
-//        buttonLogin = (Button) findViewById(R.id.buttonLogin);
-//        buttonLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(LoginActivity.this, HomeFragment.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
+
 }
