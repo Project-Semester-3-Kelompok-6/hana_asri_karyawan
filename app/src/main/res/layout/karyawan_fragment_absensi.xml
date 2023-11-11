@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Karyawan.AbsensiFragment">
+    tools:context=".Karyawan.absensi.AbsensiFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -16,21 +16,21 @@
         android:padding="20dp"
         android:gravity="center">
         <ImageButton
-            android:id="@+id/btn_lihat_data"
+            android:id="@+id/btn_absenMasuk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/izin_ic_absenmasuk"
             android:backgroundTint="@android:color/transparent"/>
 
         <ImageButton
-            android:id="@+id/btn_tambah_data"
+            android:id="@+id/btn_absenKeluar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/izin_ic_absenkeluar"
             android:backgroundTint="@android:color/transparent" />
 
         <ImageButton
-            android:id="@+id/btn_tentang"
+            android:id="@+id/btn_laporan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/izin_ic_laporan"

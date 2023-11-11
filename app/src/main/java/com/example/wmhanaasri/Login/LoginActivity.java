@@ -53,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     String email = etEmail.getText().toString();
                     String password = etPassword.getText().toString();
+                    Intent intent = new Intent(LoginActivity.this, KaryawanMainActivity.class);
+                    startActivity(intent);
                 }
             });
     }

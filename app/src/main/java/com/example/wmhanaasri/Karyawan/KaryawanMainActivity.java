@@ -7,11 +7,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.wmhanaasri.Karyawan.absensi.AbsensiFragment;
 import com.example.wmhanaasri.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 import com.example.wmhanaasri.Karyawan.adapter.ViewPagerAdapter;
 
