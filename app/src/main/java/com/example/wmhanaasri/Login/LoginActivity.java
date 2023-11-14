@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
-                map.put("email_akun", emailField.getText().toString().trim());
+                map.put("email", emailField.getText().toString().trim());
                 map.put("password", passwordField.getText().toString().trim());
                 return map;
             }
