@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.wmhanaasri.Karyawan.HomeFragment;
-import com.example.wmhanaasri.Karyawan.IzinFragment;
-import com.example.wmhanaasri.Karyawan.TugasFragment;
+import com.example.wmhanaasri.Karyawan.home.HomeFragment;
+import com.example.wmhanaasri.Karyawan.izin.IzinFragment;
+import com.example.wmhanaasri.Karyawan.tugas.TugasFragment;
 import com.example.wmhanaasri.Karyawan.absensi.AbsensiFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter{

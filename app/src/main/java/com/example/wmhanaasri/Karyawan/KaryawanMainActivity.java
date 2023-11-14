@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.wmhanaasri.Karyawan.absensi.AbsensiFragment;
+import com.example.wmhanaasri.Karyawan.home.HomeFragment;
+import com.example.wmhanaasri.Karyawan.izin.IzinFragment;
+import com.example.wmhanaasri.Karyawan.tugas.TugasFragment;
 import com.example.wmhanaasri.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;

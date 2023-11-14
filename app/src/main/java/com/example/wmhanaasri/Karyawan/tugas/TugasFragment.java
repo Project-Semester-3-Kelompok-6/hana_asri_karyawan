@@ -1,21 +1,19 @@
-package com.example.wmhanaasri.Karyawan;
+package com.example.wmhanaasri.Karyawan.tugas;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
+import android.widget.SpinnerAdapter;
 
 import com.example.wmhanaasri.ListAktivitas;
-import com.example.wmhanaasri.PresensiFragment;
 import com.example.wmhanaasri.R;
 
 import java.util.ArrayList;
@@ -24,14 +22,12 @@ import com.example.wmhanaasri.Karyawan.adapter.AktifitasAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the {@link TugasFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
-    private RecyclerView recyclerView;
-    private AktifitasAdapter adapter;
-    private ArrayList<ListAktivitas> AktifitasArrayList;
-    private ImageView imgView;
+public class TugasFragment extends Fragment {
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -40,8 +36,13 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Spinner spinner;
+    private SpinnerAdapter adapter;
+    private RecyclerView recyclerView;
+    private AktifitasAdapter adapterRecycler;
+    private ArrayList<ListAktivitas> AktifitasArrayList;
 
-    public HomeFragment() {
+    public TugasFragment() {
         // Required empty public constructor
     }
 
@@ -51,11 +52,11 @@ public class HomeFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
+     * @return A new instance of fragment RekapFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static TugasFragment newInstance(String param1, String param2) {
+        TugasFragment fragment = new TugasFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,12 +64,33 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
-    @SuppressLint("MissingInflatedId")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
-        View view = inflater.inflate(R.layout.karyawan_fragment_home, container, false);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
+        View view = inflater.inflate(R.layout.karyawan_fragment_tugas, container, false);
+        spinner = view.findViewById(R.id.spinnerRekap);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireActivity(), android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.add("Tugas");
+        adapter.add("Presensi");
+
+
+        spinner.setAdapter(adapter); // Mengatur adapter ke Spinner
+        spinner.setSelection(0); // Memilih item "Presensi" sebagai item default
+
+        //recycler view
         recyclerView = view.findViewById(R.id.recycle_viewHome);
 
         // Membuat objek ArrayList Aktifitas
@@ -78,47 +100,24 @@ public class HomeFragment extends Fragment {
         addData();
 
         // Membuat dan mengatur adapter
-        adapter = new AktifitasAdapter(AktifitasArrayList);
+        adapterRecycler = new AktifitasAdapter(AktifitasArrayList);
 
         // Membuat dan mengatur layout manager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()); // Gunakan getActivity() karena Anda berada dalam fragmen
 
         // Mengatur layout manager dan adapter untuk RecyclerView
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapterRecycler);
 
-        imgView = view.findViewById(R.id.btnPresensi);
-        imgView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Buat objek PresensiFragment
-                PresensiFragment presensiFragment = new PresensiFragment();
-
-                // Ganti tampilan fragmen dalam wadah (FrameLayout) dengan fragmen PresensiFragment
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.flFragment, presensiFragment);
-                transaction.addToBackStack(null); // Untuk menambahkan ke back stack
-                transaction.commit();
-            }
-        });
-
-        // view
         return view;
     }
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    void addData(){
+    void addData() {
         AktifitasArrayList = new ArrayList<>();
         AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
         AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
         AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
+        AktifitasArrayList.add(new ListAktivitas("Restok Bahan", "Rizqi", "15 Oktober 2023"));
         AktifitasArrayList.add(new ListAktivitas("Restok Bahan", "Rizqi", "15 Oktober 2023"));
     }
 }
