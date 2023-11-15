@@ -40,9 +40,8 @@ public class AbsensiFragment extends Fragment {
         btnAbsenKeluar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle the click for btnAbsenKeluar
-                // Contoh:
-                // Tambahkan kode untuk aksi ketika btnAbsenKeluar diklik
+                Intent intent = new Intent(getActivity(), AbsensiKeluarActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -50,9 +49,8 @@ public class AbsensiFragment extends Fragment {
         btnLaporan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle the click for btnLaporan
-                // Contoh:
-                // Tambahkan kode untuk aksi ketika btnLaporan diklik
+                Intent intent = new Intent(getActivity(), AbsensiLaporanActivity.class);
+                startActivity(intent);
             }
         });
 
