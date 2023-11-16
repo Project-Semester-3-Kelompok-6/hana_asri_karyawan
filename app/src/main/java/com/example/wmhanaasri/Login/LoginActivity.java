@@ -14,11 +14,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.wmhanaasri.Connection.DBConnect;
 import com.example.wmhanaasri.Karyawan.KaryawanMainActivity;
+import com.example.wmhanaasri.Manajer.MainActivity;
 import com.example.wmhanaasri.R;
 
 import org.json.JSONArray;
@@ -65,21 +65,46 @@ public class LoginActivity extends AppCompatActivity {
                     if (dataArray.length() > 0) {
                         JSONObject res = dataArray.getJSONObject(0);
 
-                        SharedPreferences preferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("id", res.getString("UserID"));
-                        editor.putString("nama", res.getString("Nama"));
-                        editor.putString("email", res.getString("email"));
-                        editor.putString("password", res.getString("password"));
-                        editor.putString("jabatan", res.getString("Role"));
-                        editor.putString("status", res.getString("Status"));
-                        editor.putString("devisi", res.getString("DevisiID"));
-                        editor.apply();
+                        String role = res.getString("Role"); // Ambil peran pengguna dari respons server
 
-                        startActivity(new Intent(LoginActivity.this, KaryawanMainActivity.class));
-                        finish();
+                        if (role.equals("Karyawan")) { // Periksa apakah peran adalah "Karyawan"
+                            // Jika peran adalah "Karyawan", lanjutkan dengan login ke KaryawanMainActivity
+                            SharedPreferences preferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("id", res.getString("UserID"));
+                            editor.putString("nama", res.getString("Nama"));
+                            editor.putString("email", res.getString("Email"));
+                            editor.putString("password", res.getString("Password"));
+                            editor.putString("jabatan", res.getString("Role"));
+                            editor.putString("status", res.getString("Status"));
+                            editor.putString("devisi", res.getString("DevisiID"));
+                            editor.apply();
 
-                        Toast.makeText(getApplicationContext(), "Login Sukses!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this, KaryawanMainActivity.class));
+                            finish();
+
+                            Toast.makeText(getApplicationContext(), "Login Sukses!", Toast.LENGTH_SHORT).show();
+                        }  else if (role.equals("Manajer")) {
+                            // Logika untuk pengguna dengan peran "Manajer"
+                            SharedPreferences preferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("id", res.getString("UserID"));
+                            editor.putString("nama", res.getString("Nama"));
+                            editor.putString("email", res.getString("Email"));
+                            editor.putString("password", res.getString("Password"));
+                            editor.putString("jabatan", res.getString("Role"));
+                            editor.putString("status", res.getString("Status"));
+                            editor.putString("devisi", res.getString("DevisiID"));
+                            editor.apply();
+
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
+
+                            Toast.makeText(getApplicationContext(), "Login Sukses sebagai Manajer!", Toast.LENGTH_SHORT).show();
+                        }else {
+                            // Jika peran bukan "Karyawan", tampilkan pesan bahwa akses tidak diizinkan
+                            Toast.makeText(getApplicationContext(), "Anda tidak memiliki akses sebagai Karyawan", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(getApplicationContext(), "No data found in the response.", Toast.LENGTH_SHORT).show();
                     }
@@ -99,8 +124,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
-                map.put("email", emailField.getText().toString().trim());
-                map.put("password", passwordField.getText().toString().trim());
+                map.put("Email", emailField.getText().toString().trim());
+                map.put("Password", passwordField.getText().toString().trim());
                 return map;
             }
         };
@@ -120,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
             emailField.setError("Isi Email");
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailField.setError("Format email salah");
-        }else{
+        } else{
             isValidEmail = true;
         }
 
@@ -128,13 +153,12 @@ public class LoginActivity extends AppCompatActivity {
             passwordField.setError("Password Dibutuhkan");
         } else if (password.length()< 8) {
             passwordField.setError("Password Minimal 8");
-        }else {
+        } else {
             isValidPassword = true;
         }
 
         btnLogin.setEnabled(isValidEmail && isValidPassword);
 
         return isValidEmail && isValidPassword;
-
     }
 }

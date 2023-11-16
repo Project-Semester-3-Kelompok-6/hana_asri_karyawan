@@ -134,17 +134,17 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nama Anda"
+                            android:text="ID Pegawai Anda"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/inputNama"
+                            android:id="@+id/inputIDPegawai"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:backgroundTint="@android:color/holo_red_light"
-                            android:hint="Masukan nama Anda"
+                            android:hint="Masukan ID Pegawai Anda"
                             android:imeOptions="actionNext"
                             android:maxLines="1"
                             android:singleLine="true"
