@@ -26,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.wmhanaasri.Connection.DBConnect;
 import com.example.wmhanaasri.R;
 import com.karumi.dexter.BuildConfig;
 import com.karumi.dexter.Dexter;
@@ -96,17 +97,22 @@ public class AbsensiMasukActivity extends AppCompatActivity {
                     byte[] bytes = byteArrayOutputStream.toByteArray();
                     final String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
                     RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                    String url = "";
+//                    String url = "";
 
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, DBConnect.urlAbsensiMasuk,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-
+                                    if (response.equals("success")) {
+                                        Toast.makeText(getApplicationContext(), "Image uploaded", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Failed to upload image ", Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
                         }
                     }){
@@ -114,12 +120,15 @@ public class AbsensiMasukActivity extends AppCompatActivity {
                         @Override
                         protected Map<String, String> getParams(){
                             Map<String, String> paramV = new HashMap<>();
-                            paramV.put("param", "abc");
+                            paramV.put("image", base64Image);
                             return paramV;
                         }
                     };
+                    queue.add(stringRequest);
                 }
-                else Toast.makeText(AbsensiMasukActivity.this, "Ambil Foto Dulu", Toast.LENGTH_SHORT).show();
+                else{
+                    Toast.makeText(AbsensiMasukActivity.this, "Ambil Foto Dulu", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
