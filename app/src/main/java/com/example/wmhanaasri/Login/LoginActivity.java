@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(new Intent(LoginActivity.this, KaryawanMainActivity.class));
                             finish();
 
-                            Toast.makeText(getApplicationContext(), "Login Sukses!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Login Sebagai Karyawan", Toast.LENGTH_SHORT).show();
                         }  else if (role.equals("Manajer")) {
                             // Logika untuk pengguna dengan peran "Manajer"
                             SharedPreferences preferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
 
-                            Toast.makeText(getApplicationContext(), "Login Sukses sebagai Manajer!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Login Sebagai Manajer", Toast.LENGTH_SHORT).show();
                         }else {
                             // Jika peran bukan "Karyawan", tampilkan pesan bahwa akses tidak diizinkan
                             Toast.makeText(getApplicationContext(), "Anda tidak memiliki akses sebagai Karyawan", Toast.LENGTH_SHORT).show();
