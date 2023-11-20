@@ -2,6 +2,7 @@ package com.example.wmhanaasri.Karyawan.absensi;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -16,8 +17,11 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,21 +32,50 @@ import com.android.volley.toolbox.Volley;
 import com.example.wmhanaasri.Connection.DBConnect;
 import com.example.wmhanaasri.R;
 
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+
+import java.io.IOException;
+import java.util.Calendar;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class AbsensiMasukActivity extends AppCompatActivity {
 
     Bitmap bitmap;
+    EditText inputTanggal;
+    Calendar calendar;
+
+    //decoder location
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
+    private FusedLocationProviderClient fusedLocationClient;
+    private EditText inputLokasi;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.karyawan_activity_absensi_masuk);
-
+        //deklarasi untuk input image
         ImageView imageView = findViewById(R.id.imageSelfie);
         Button button = findViewById(R.id.btnAbsen);
+        //deklarasi untuk input tanggal
+        inputTanggal = findViewById(R.id.inputTanggal);
+        calendar = Calendar.getInstance();
+        //deklarasi lokasi
+        inputLokasi = findViewById(R.id.inputLokasi);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
 
         ActivityResultLauncher<Intent> activityResultLauncher =
                 registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -64,6 +97,41 @@ public class AbsensiMasukActivity extends AppCompatActivity {
                 activityResultLauncher.launch(intent);
             }
         });
+
+        inputTanggal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AbsensiMasukActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                // Set tanggal yang dipilih pada EditText
+                                String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                                inputTanggal.setText(date);
+                            }
+                        }, year, month, day);
+
+                // Tampilkan date picker
+                datePickerDialog.show();
+            }
+        });
+
+        //memasukkan lokasi secara otomatis
+        inputLokasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(AbsensiMasukActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(AbsensiMasukActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+                } else {
+                    getCurrentLocation();
+                }
+            }
+        });
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,4 +176,47 @@ public class AbsensiMasukActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void getCurrentLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Meminta izin akses lokasi dari pengguna
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        }else{
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, location -> {
+                        if (location != null) {
+                            double latitude = location.getLatitude();
+                            double longitude = location.getLongitude();
+                            getAddressFromLocation(latitude, longitude);
+                        }
+                    });
+        }
+    }
+
+    private void getAddressFromLocation(double latitude, double longitude) {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses != null && addresses.size() > 0) {
+                Address address = addresses.get(0);
+                String fullAddress = address.getAddressLine(0);
+                inputLokasi.setText(fullAddress);
+            } else {
+                Toast.makeText(this, "Alamat tidak ditemukan", Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getCurrentLocation();
+            }
+        }
+    }
 }
+
