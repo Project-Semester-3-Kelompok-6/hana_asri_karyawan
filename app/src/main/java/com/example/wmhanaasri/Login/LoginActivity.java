@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -44,14 +47,45 @@ public class LoginActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.etPassword);
 
         btnLogin = findViewById(R.id.btnLogin);
+
+        btnLogin.setEnabled(false);
+
+        emailField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                InputValidated();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
+        passwordField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                InputValidated();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
         btnLogin.setOnClickListener(view -> {
             if (InputValidated()) {
-                login();
+                performlogin();
             }
         });
     }
 
-    private void login() {
+
+
+    private void performlogin() {
         StringRequest request = new StringRequest(Request.Method.POST, DBConnect.urlLogin, response -> {
             try {
                 JSONObject jsonObject = new JSONObject(response);
@@ -134,6 +168,7 @@ public class LoginActivity extends AppCompatActivity {
         queue.add(request);
     }
 
+
     private boolean InputValidated() {
         String email = emailField.getText().toString().trim();
         String password = passwordField.getText().toString().trim();
@@ -141,18 +176,14 @@ public class LoginActivity extends AppCompatActivity {
         boolean isValidEmail = false;
         boolean isValidPassword = false;
 
-        if (email.isEmpty()){
-            emailField.setError("Isi Email");
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailField.setError("Format email salah");
-        } else{
+        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailField.setError("Isi Email dengan format yang benar");
+        } else {
             isValidEmail = true;
         }
 
-        if (password.isEmpty()){
-            passwordField.setError("Password Dibutuhkan");
-        } else if (password.length()< 8) {
-            passwordField.setError("Password Minimal 8");
+        if (password.isEmpty() || password.length() < 8) {
+            passwordField.setError("Password Minimal 8 karakter");
         } else {
             isValidPassword = true;
         }
