@@ -221,25 +221,25 @@
                         android:layout_margin="20dp"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Keterangan"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Keterangan"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="bold" />-->
 
-                        <EditText
-                            android:id="@+id/inputKeterangan"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:backgroundTint="@android:color/holo_red_light"
-                            android:hint="Masukan Keterangan"
-                            android:imeOptions="actionDone"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
+<!--                        <EditText-->
+<!--                            android:id="@+id/inputKeterangan"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="50dp"-->
+<!--                            android:backgroundTint="@android:color/holo_red_light"-->
+<!--                            android:hint="Masukan Keterangan"-->
+<!--                            android:imeOptions="actionDone"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:singleLine="true"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="16sp" />-->
 
                     </LinearLayout>
 
