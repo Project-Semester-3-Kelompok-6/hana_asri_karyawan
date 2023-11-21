@@ -7,9 +7,13 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.UnderlineSpan;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -37,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText emailField, passwordField;
     private Button btnLogin;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +84,20 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(view -> {
             if (InputValidated()) {
                 performlogin();
+            }
+        });
+
+        //text garis bawah & button lupa password
+        textView = (TextView)findViewById(R.id.lupaPassword);
+        String content = "Lupa Password";
+        SpannableString spannableString = new SpannableString(content);
+        spannableString.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        textView.setText(spannableString);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, LupaPasswordActivity.class);
+                startActivity(intent);
             }
         });
     }
