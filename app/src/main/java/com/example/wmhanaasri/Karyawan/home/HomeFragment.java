@@ -1,6 +1,7 @@
 package com.example.wmhanaasri.Karyawan.home;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,13 +13,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import com.example.wmhanaasri.ListAktivitas;
 import com.example.wmhanaasri.PresensiFragment;
 import com.example.wmhanaasri.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 import com.example.wmhanaasri.Karyawan.adapter.AktifitasAdapter;
 
@@ -69,6 +75,22 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         View view = inflater.inflate(R.layout.karyawan_fragment_home, container, false);
+
+        TextView textView = view.findViewById(R.id.tanggal);
+        String currentDate = getCurrentDate();
+        textView.setText(currentDate);
+
+        LinearLayout layoutPresensi = view.findViewById(R.id.layoutPresensi);
+
+        layoutPresensi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), JadwalActivity.class);
+                startActivity(intent);
+            }
+        });
+
+//        View view = inflater.inflate(R.layout.karyawan_fragment_home, container, false);
         recyclerView = view.findViewById(R.id.recycle_viewHome);
 
         // Membuat objek ArrayList Aktifitas
@@ -87,23 +109,29 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        imgView = view.findViewById(R.id.btnPresensi);
-        imgView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Buat objek PresensiFragment
-                PresensiFragment presensiFragment = new PresensiFragment();
+//        imgView = view.findViewById(R.id.btnPresensi);
+//        imgView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // Buat objek PresensiFragment
+//                PresensiFragment presensiFragment = new PresensiFragment();
+//
+//                // Ganti tampilan fragmen dalam wadah (FrameLayout) dengan fragmen PresensiFragment
+//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.flFragment, presensiFragment);
+//                transaction.addToBackStack(null); // Untuk menambahkan ke back stack
+//                transaction.commit();
+//            }
+//        });
 
-                // Ganti tampilan fragmen dalam wadah (FrameLayout) dengan fragmen PresensiFragment
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.flFragment, presensiFragment);
-                transaction.addToBackStack(null); // Untuk menambahkan ke back stack
-                transaction.commit();
-            }
-        });
-
-        // view
+        // mengembalikan view
         return view;
+    }
+
+    private String getCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, d MMMM yyyy", Locale.getDefault());
+        return dateFormat.format(calendar.getTime());
     }
 
     public void onCreate(Bundle savedInstanceState) {
