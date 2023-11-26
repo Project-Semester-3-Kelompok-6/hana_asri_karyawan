@@ -21,7 +21,7 @@ public class AktifitasAdapter extends RecyclerView.Adapter<AktifitasAdapter.Akti
     @Override
     public AktifitasViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.recycle_view_home_activity, parent, false);
+        View view = layoutInflater.inflate(R.layout.karyawan_recycle_view_home_activity, parent, false);
         return new AktifitasViewHolder(view);
     }
     @Override

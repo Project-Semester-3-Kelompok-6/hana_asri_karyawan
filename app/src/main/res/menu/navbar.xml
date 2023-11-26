@@ -6,17 +6,17 @@
         android:icon="@drawable/icon_home"/>
 
     <item
-        android:id="@+id/absensi"
-        android:title="Absensi"
-        android:icon="@drawable/karyawan_ic_absensi"/>
-
-    <item
         android:id="@+id/tugas"
         android:title="Tugas"
-        android:icon="@drawable/karyawan_ic_tugas"/>
+        android:icon="@drawable/icon_tugas"/>
 
     <item
-        android:id="@+id/izin"
-        android:title="Izin"
-        android:icon="@drawable/karyawan_ic_izin"/>
+        android:id="@+id/rekap"
+        android:title="Rekap"
+        android:icon="@drawable/icon_rekap"/>
+
+    <item
+        android:id="@+id/karyawan"
+        android:title="Karyawan"
+        android:icon="@drawable/icon_karyawan"/>
 </menu>
