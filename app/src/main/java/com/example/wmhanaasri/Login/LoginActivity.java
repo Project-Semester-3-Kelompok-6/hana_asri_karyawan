@@ -58,8 +58,6 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.loading);
         sharedPreferences = getSharedPreferences("users", MODE_PRIVATE);
 
-
-
         btnLogin.setEnabled(false);
 
         emailField.addTextChangedListener(new TextWatcher() {
@@ -90,13 +88,12 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin.setOnClickListener(view -> {
             if (InputValidated()) {
-                performlogin();
-
+                performLogin();
             }
         });
 
         //text garis bawah & button lupa password
-        textView = (TextView)findViewById(R.id.lupaPassword);
+        textView = findViewById(R.id.lupaPassword);
         String content = "Lupa Password";
         SpannableString spannableString = new SpannableString(content);
         spannableString.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -111,77 +108,76 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void performLogin() {
+        StringRequest request = new StringRequest(Request.Method.POST, DBConnect.urlLogin, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
 
+                    int code = jsonObject.getInt("code");
+                    String status = jsonObject.getString("status");
 
-    private void performlogin() {
-        StringRequest request = new StringRequest(Request.Method.POST, DBConnect.urlLogin, response -> {
-            try {
-                JSONObject jsonObject = new JSONObject(response);
+                    if (code == 200 && status.equals("Sukses")) {
+                        JSONArray dataArray = jsonObject.getJSONArray("data");
 
-                int code = jsonObject.getInt("code");
-                String status = jsonObject.getString("status");
+                        if (dataArray.length() > 0) {
+                            JSONObject res = dataArray.getJSONObject(0);
 
-                if (code == 200 && status.equals("Sukses")) {
-                    JSONArray dataArray = jsonObject.getJSONArray("data");
+                            String role = res.getString("Role"); // Ambil peran pengguna dari respons server
 
-                    if (dataArray.length() > 0) {
-                        JSONObject res = dataArray.getJSONObject(0);
+                            if (role.equals("Karyawan")) {
+                                SharedPreferences preferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putString("id", res.getString("UserID"));
+                                editor.putString("nama", res.getString("Nama"));
+                                editor.putString("email", res.getString("Email"));
+                                editor.putString("password", res.getString("Password"));
+                                editor.putString("jabatan", res.getString("Role"));
+                                editor.putString("status", res.getString("Status"));
+                                editor.putString("devisi", res.getString("DevisiID"));
+                                editor.apply();
 
-                        String role = res.getString("Role"); // Ambil peran pengguna dari respons server
+                                startActivity(new Intent(LoginActivity.this, KaryawanMainActivity.class));
+                                finish();
+                                Toast.makeText(getApplicationContext(), "Login Sebagai Karyawan", Toast.LENGTH_SHORT).show();
+                            } else if (role.equals("Manajer")) {
+                                SharedPreferences preferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putString("id", res.getString("UserID"));
+                                editor.putString("nama", res.getString("Nama"));
+                                editor.putString("email", res.getString("Email"));
+                                editor.putString("password", res.getString("Password"));
+                                editor.putString("jabatan", res.getString("Role"));
+                                editor.putString("status", res.getString("Status"));
+                                editor.putString("devisi", res.getString("DevisiID"));
+                                editor.apply();
 
-                        if (role.equals("Karyawan")) { // Periksa apakah peran adalah "Karyawan"
-                            // Jika peran adalah "Karyawan", lanjutkan dengan login ke KaryawanMainActivity
-                            SharedPreferences preferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = preferences.edit();
-                            editor.putString("id", res.getString("UserID"));
-                            editor.putString("nama", res.getString("Nama"));
-                            editor.putString("email", res.getString("Email"));
-                            editor.putString("password", res.getString("Password"));
-                            editor.putString("jabatan", res.getString("Role"));
-                            editor.putString("status", res.getString("Status"));
-                            editor.putString("devisi", res.getString("DevisiID"));
-                            editor.apply();
-
-                            startActivity(new Intent(LoginActivity.this, KaryawanMainActivity.class));
-                            finish();
-
-                            Toast.makeText(getApplicationContext(), "Login Sebagai Karyawan", Toast.LENGTH_SHORT).show();
-                        }  else if (role.equals("Manajer")) {
-                            // Logika untuk pengguna dengan peran "Manajer"
-                            SharedPreferences preferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = preferences.edit();
-                            editor.putString("id", res.getString("UserID"));
-                            editor.putString("nama", res.getString("Nama"));
-                            editor.putString("email", res.getString("Email"));
-                            editor.putString("password", res.getString("Password"));
-                            editor.putString("jabatan", res.getString("Role"));
-                            editor.putString("status", res.getString("Status"));
-                            editor.putString("devisi", res.getString("DevisiID"));
-                            editor.apply();
-
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            finish();
-
-                            Toast.makeText(getApplicationContext(), "Login Sebagai Manajer", Toast.LENGTH_SHORT).show();
-                        }else {
-                            // Jika peran bukan "Karyawan", tampilkan pesan bahwa akses tidak diizinkan
-                            Toast.makeText(getApplicationContext(), "Anda tidak memiliki akses sebagai Karyawan", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                finish();
+                                Toast.makeText(getApplicationContext(), "Login Sebagai Manajer", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Anda tidak memiliki akses sebagai Karyawan", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "No data found in the response.", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(getApplicationContext(), "No data found in the response.", Toast.LENGTH_SHORT).show();
+                    } else if (code == 401) {
+                        Toast.makeText(LoginActivity.this, "Password atau Email Salah", Toast.LENGTH_SHORT).show();
+                    } else if (code == 404 && !status.equals("Sukses")) {
+                        Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();
                     }
-                } else if (code == 401) {
-                    Toast.makeText(this, "Password atau Email Salah", Toast.LENGTH_SHORT).show();
-                } else if (code == 404 && !status.equals("Sukses")) {
-                    Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "JSON ERROR", Toast.LENGTH_SHORT).show();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "JSON ERROR", Toast.LENGTH_SHORT).show();
             }
-        }, error -> {
-            error.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Network Error: "+error.getMessage(), Toast.LENGTH_SHORT).show();
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Network Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -195,7 +191,6 @@ public class LoginActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
     }
-
 
     private boolean InputValidated() {
         String email = emailField.getText().toString().trim();
