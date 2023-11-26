@@ -13,6 +13,7 @@ import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailField, passwordField;
     private Button btnLogin;
     private TextView textView;
+    private ProgressBar progressBar;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,10 @@ public class LoginActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.etPassword);
 
         btnLogin = findViewById(R.id.btnLogin);
+        progressBar = findViewById(R.id.loading);
+        sharedPreferences = getSharedPreferences("users", MODE_PRIVATE);
+
+
 
         btnLogin.setEnabled(false);
 
@@ -84,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(view -> {
             if (InputValidated()) {
                 performlogin();
+
             }
         });
 
@@ -96,8 +104,9 @@ public class LoginActivity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, LupaPasswordActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LupaPasswordActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
