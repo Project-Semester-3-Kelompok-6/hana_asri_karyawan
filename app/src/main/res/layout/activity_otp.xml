@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="10dp"
-    tools:context=".Login.LupaPasswordActivity">
+    tools:context=".Login.OTP">
 
 
     <ImageView
@@ -20,13 +20,33 @@
         />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/otp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginHorizontal="30dp"
         android:inputType="text"
-        android:hint="Masukkan Email"
+        android:hint="Masukkan kode OTP "
+        android:background="@drawable/rounded_textfield"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="30dp"
+        android:inputType="textPassword"
+        android:hint="Masukkan Password Baru"
+        android:background="@drawable/rounded_textfield"/>
+
+    <EditText
+        android:id="@+id/konfirPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="30dp"
+        android:inputType="textPassword"
+        android:hint="Konfirmasi Password"
         android:background="@drawable/rounded_textfield"/>
     <ProgressBar
         android:id="@+id/progress"
@@ -34,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone"/>
+
 
     <Button
         android:id="@+id/btnLogin"
