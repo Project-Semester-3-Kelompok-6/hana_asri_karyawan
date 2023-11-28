@@ -1,7 +1,7 @@
 package com.example.wmhanaasri.Connection;
 
 public class DBConnect {
-    public static String ip = "192.168.1.26";
+    public static String ip = "192.168.1.7";
 
     //Login URL
     public static final String urlLogin = "http://"+ip+"//API_Mobile/mobile_login.php";
@@ -17,5 +17,6 @@ public class DBConnect {
 
     //Manajer URL
     public static final String getDevisi = "http://"+ip+"//API_Mobile/getDevisi.php";
+    public static final String UrlTambahKaryawan = "http://"+ip+"//API_Mobile/tambah-karyawan.php";
 
 }

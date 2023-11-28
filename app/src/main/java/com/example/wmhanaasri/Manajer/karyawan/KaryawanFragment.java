@@ -1,5 +1,6 @@
 package com.example.wmhanaasri.Manajer.karyawan;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -82,13 +83,16 @@ public class KaryawanFragment extends Fragment {
                                     Log.d("DevisiSet", devisiSet.toString());
 
                                     // Setelah menyimpan data, pindah ke TambahKaryawanFragment
-                                    TambahKaryawanFragment tambahKaryawanFragment = new TambahKaryawanFragment();
+//                                    TambahKaryawanFragment tambahKaryawanFragment = new TambahKaryawanFragment();
 
                                     // Ganti tampilan fragmen dalam wadah (FrameLayout) dengan fragmen TambahKaryawanFragment
-                                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                                    transaction.replace(R.id.flFragment, tambahKaryawanFragment);
-                                    transaction.addToBackStack(null); // Untuk menambahkan ke back stack
-                                    transaction.commit();
+//                                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+//                                    transaction.replace(R.id.flFragment, tambahKaryawanFragment);
+//                                    transaction.addToBackStack(null); // Untuk menambahkan ke back stack
+//                                    transaction.commit();
+
+                                    Intent intent = new Intent(getContext(), TambahKaryawanActivity.class);
+                                    startActivity(intent);
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
