@@ -49,6 +49,7 @@ public class HomeFragment extends Fragment {
     private AktifitasAdapter adapter;
     private ArrayList<ListAktivitas> AktifitasArrayList;
     private ImageView imgView;
+    private TextView textViewNama,textViewJabatan;
     SharedPreferences sharedPreferences;
 
     @SuppressLint("MissingInflatedId")
@@ -59,8 +60,18 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.karyawan_fragment_home, container, false);
 
         TextView textView = view.findViewById(R.id.tanggal);
+        textViewNama = view.findViewById(R.id.tv_user);
+        textViewJabatan = view.findViewById(R.id.jabatan);
+
+        SharedPreferences preferences = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+        String nama = preferences.getString("nama", "");
+        String jabatan = preferences.getString("jabatan", "");
+        textViewNama.setText(nama);
+        textViewJabatan.setText(jabatan);
+
         String currentDate = getCurrentDate();
         textView.setText(currentDate);
+
 
         LinearLayout layoutJadwal = view.findViewById(R.id.layoutJadwal);
         LinearLayout layoutProfile = view.findViewById(R.id.layoutProfile);
@@ -84,6 +95,17 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        layoutLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireContext(), LoginActivity.class);
+                startActivity(intent);
+                requireActivity().finish();
+            }
+        });
+
+
 //Failed implement hapus token ketika logout
 //        layoutLogout.setOnClickListener(new View.OnClickListener() {
 //            @Override

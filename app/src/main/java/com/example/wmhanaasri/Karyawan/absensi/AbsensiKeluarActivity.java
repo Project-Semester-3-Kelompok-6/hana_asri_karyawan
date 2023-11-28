@@ -44,6 +44,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -52,7 +53,6 @@ import java.util.Locale;
 import java.util.Map;
 
 public class AbsensiKeluarActivity extends AppCompatActivity {
-
 
     Bitmap bitmap;
     EditText inputTanggal;
@@ -63,11 +63,11 @@ public class AbsensiKeluarActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
     private EditText inputLokasi;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.karyawan_activity_absensi_keluar);
-
+        setContentView(R.layout.karyawan_activity_absensi_masuk);
         //deklarasi untuk input image
         ImageView imageView = findViewById(R.id.imageSelfie);
         Button button = findViewById(R.id.btnAbsen);
@@ -90,18 +90,19 @@ public class AbsensiKeluarActivity extends AppCompatActivity {
             }
         });
 
-                ActivityResultLauncher<Intent> activityResultLauncher =
-                        registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                            @Override
-                            public void onActivityResult(ActivityResult result) {
-                                if (result.getResultCode() == Activity.RESULT_OK) {
-                                    Bundle extras = result.getData().getExtras();
-                                    Bitmap imageBitmap = (Bitmap) extras.get("data");
-                                    imageView.setImageBitmap(imageBitmap);
-                                    bitmap = imageBitmap; // Inisialisasi bitmap dengan imageBitmap
-                                }
-                            }
-                        });
+
+        ActivityResultLauncher<Intent> activityResultLauncher =
+                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Bundle extras = result.getData().getExtras();
+                            Bitmap imageBitmap = (Bitmap) extras.get("data");
+                            imageView.setImageBitmap(imageBitmap);
+                            bitmap = imageBitmap; // Inisialisasi bitmap dengan imageBitmap
+                        }
+                    }
+                });
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,69 +112,14 @@ public class AbsensiKeluarActivity extends AppCompatActivity {
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ByteArrayOutputStream byteArrayOutputStream;
-                byteArrayOutputStream = new ByteArrayOutputStream();
-                if (bitmap != null) {
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-                    byte[] bytes = byteArrayOutputStream.toByteArray();
-                    final String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
-                    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, DBConnect.urlAbsensiMasuk,
-                            new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    if (response.equals("success")) {
-                                        Toast.makeText(getApplicationContext(), "Image uploaded", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(getApplicationContext(), "Failed to upload image ", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-
-                        }
-                    }) {
-                        @Nullable
-                        @Override
-                        protected Map<String, String> getParams() {
-                            Map<String, String> paramV = new HashMap<>();
-                            paramV.put("image", base64Image);
-                            return paramV;
-                        }
-                    };
-                    queue.add(stringRequest);
-                } else {
-                    Toast.makeText(AbsensiKeluarActivity.this, "Ambil Foto Dulu", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
         inputTanggal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                Calendar calendar = Calendar.getInstance(); // Mengambil tanggal dan waktu terkini
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                String currentDateAndTime = sdf.format(calendar.getTime());
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(AbsensiKeluarActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                // Set tanggal yang dipilih pada EditText
-                                String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-                                inputTanggal.setText(date);
-                            }
-                        }, year, month, day);
-
-                // Tampilkan date picker
-                datePickerDialog.show();
+                inputTanggal.setText(currentDateAndTime);
             }
         });
 
@@ -193,47 +139,48 @@ public class AbsensiKeluarActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ByteArrayOutputStream byteArrayOutputStream;
-                byteArrayOutputStream = new ByteArrayOutputStream();
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 if (bitmap != null) {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
                     byte[] bytes = byteArrayOutputStream.toByteArray();
                     final String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
-                    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, DBConnect.urlAbsensiMasuk,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
                                     if (response.equals("success")) {
-                                        Toast.makeText(getApplicationContext(), "Image uploaded", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Absensi berhasil disimpan", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Toast.makeText(getApplicationContext(), "Failed to upload image ", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Gagal menyimpan absensi", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-
+                            Toast.makeText(getApplicationContext(), "Error: " + error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         }
                     }) {
                         @Nullable
                         @Override
                         protected Map<String, String> getParams() {
-                            Map<String, String> paramV = new HashMap<>();
-                            paramV.put("image", base64Image);
-                            return paramV;
+                            Map<String, String> params = new HashMap<>();
+                            params.put("KaryawanID", "1"); // Ganti dengan ID Karyawan yang sesuai
+                            params.put("Tanggal", inputTanggal.getText().toString()); // Ganti dengan tanggal yang sesuai
+                            params.put("Status", "Keluar"); // Ganti dengan status yang sesuai
+                            params.put("Lokasi", inputLokasi.getText().toString()); // Ganti dengan lokasi yang sesuai
+                            params.put("image", base64Image); // Data gambar dalam bentuk base64
+                            return params;
                         }
                     };
-                    queue.add(stringRequest);
+                    Volley.newRequestQueue(getApplicationContext()).add(stringRequest);
                 } else {
                     Toast.makeText(AbsensiKeluarActivity.this, "Ambil Foto Dulu", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-    }
 
+    }
 
     private void getCurrentLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -284,4 +231,5 @@ public class AbsensiKeluarActivity extends AppCompatActivity {
             super.onBackPressed(); // Jika tidak ada Fragment di back stack, tutup Activity
         }
     }
+
 }
