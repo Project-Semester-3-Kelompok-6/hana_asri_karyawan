@@ -79,7 +79,8 @@ public class HomeFragment extends Fragment {
         textView.setText(currentDate);
 
         LinearLayout layoutJadwal = view.findViewById(R.id.layoutJadwal);
-        LinearLayout layoutProfile = view.findViewById(R.id.layoutJadwal);
+        LinearLayout layoutProfile = view.findViewById(R.id.layoutProfile);
+        LinearLayout layoutLogout = view.findViewById(R.id.layoutLogout);
 
         layoutJadwal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +94,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), KaryawanProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        layoutLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), KaryawanLogoutActivity.class);
                 startActivity(intent);
             }
         });
