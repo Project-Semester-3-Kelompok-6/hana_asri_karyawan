@@ -108,7 +108,92 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void performLogin() {
+//    private void performLogin() {
+//        StringRequest request = new StringRequest(Request.Method.POST, DBConnect.urlLogin, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                try {
+//                    JSONObject jsonObject = new JSONObject(response);
+//
+//                    int code = jsonObject.getInt("code");
+//                    String status = jsonObject.getString("status");
+//
+//                    if (code == 200 && status.equals("Sukses")) {
+//                        JSONArray dataArray = jsonObject.getJSONArray("data");
+//
+//                        if (dataArray.length() > 0) {
+//                            JSONObject res = dataArray.getJSONObject(0);
+//
+//                            String role = res.getString("Role"); // Ambil peran pengguna dari respons server
+//
+//                            if (role.equals("Karyawan")) {
+//                                SharedPreferences preferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+//                                SharedPreferences.Editor editor = preferences.edit();
+//                                editor.putString("id", res.getString("UserID"));
+//                                editor.putString("nama", res.getString("Nama"));
+//                                editor.putString("email", res.getString("Email"));
+//                                editor.putString("password", res.getString("Password"));
+//                                editor.putString("jabatan", res.getString("Role"));
+//                                editor.putString("status", res.getString("Status"));
+//                                editor.putString("devisi", res.getString("DevisiID"));
+//                                editor.apply();
+//
+//                                startActivity(new Intent(LoginActivity.this, KaryawanMainActivity.class));
+//                                finish();
+//                                Toast.makeText(getApplicationContext(), "Login Sebagai Karyawan", Toast.LENGTH_SHORT).show();
+//                            } else if (role.equals("Manajer")) {
+//                                SharedPreferences preferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+//                                SharedPreferences.Editor editor = preferences.edit();
+//                                editor.putString("id", res.getString("UserID"));
+//                                editor.putString("nama", res.getString("Nama"));
+//                                editor.putString("email", res.getString("Email"));
+//                                editor.putString("password", res.getString("Password"));
+//                                editor.putString("jabatan", res.getString("Role"));
+//                                editor.putString("status", res.getString("Status"));
+//                                editor.putString("devisi", res.getString("DevisiID"));
+//                                editor.apply();
+//
+//                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                                finish();
+//                                Toast.makeText(getApplicationContext(), "Login Sebagai Manajer", Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                Toast.makeText(getApplicationContext(), "Anda tidak memiliki akses sebagai Karyawan", Toast.LENGTH_SHORT).show();
+//                            }
+//                        } else {
+//                            Toast.makeText(getApplicationContext(), "No data found in the response.", Toast.LENGTH_SHORT).show();
+//                        }
+//                    } else if (code == 401) {
+//                        Toast.makeText(LoginActivity.this, "Password atau Email Salah", Toast.LENGTH_SHORT).show();
+//                    } else if (code == 404 && !status.equals("Sukses")) {
+//                        Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                    Toast.makeText(getApplicationContext(), "JSON ERROR", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                error.printStackTrace();
+//                Toast.makeText(getApplicationContext(), "Network Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        }) {
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> map = new HashMap<>();
+//                map.put("Email", emailField.getText().toString().trim());
+//                map.put("Password", passwordField.getText().toString().trim());
+//                return map;
+//            }
+//        };
+//
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//        queue.add(request);
+//    }
+
+
+        private void performLogin() {
         StringRequest request = new StringRequest(Request.Method.POST, DBConnect.urlLogin, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -127,8 +212,10 @@ public class LoginActivity extends AppCompatActivity {
                             String role = res.getString("Role"); // Ambil peran pengguna dari respons server
 
                             if (role.equals("Karyawan")) {
+                                String apiKey = res.getString("apiKey"); // Ambil API Key dari respons
                                 SharedPreferences preferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = preferences.edit();
+                                editor.putString("apiKey", apiKey);
                                 editor.putString("id", res.getString("UserID"));
                                 editor.putString("nama", res.getString("Nama"));
                                 editor.putString("email", res.getString("Email"));
@@ -142,8 +229,10 @@ public class LoginActivity extends AppCompatActivity {
                                 finish();
                                 Toast.makeText(getApplicationContext(), "Login Sebagai Karyawan", Toast.LENGTH_SHORT).show();
                             } else if (role.equals("Manajer")) {
+                                String apiKey = res.getString("apiKey"); // Ambil API Key dari respons
                                 SharedPreferences preferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = preferences.edit();
+                                editor.putString("apiKey", apiKey);
                                 editor.putString("id", res.getString("UserID"));
                                 editor.putString("nama", res.getString("Nama"));
                                 editor.putString("email", res.getString("Email"));
@@ -191,6 +280,7 @@ public class LoginActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
     }
+
 
     private boolean InputValidated() {
         String email = emailField.getText().toString().trim();
