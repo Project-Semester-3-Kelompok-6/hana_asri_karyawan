@@ -77,14 +77,14 @@
             android:padding="20dp">
 
             <LinearLayout
-                android:id="@+id/layoutPresensi"
+                android:id="@+id/layoutJadwal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/layoutTugas"
+                app:layout_constraintEnd_toStartOf="@+id/layoutProfile"
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView
@@ -110,14 +110,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layoutTugas"
+                android:id="@+id/layoutProfile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                app:layout_constraintStart_toEndOf="@+id/layoutPresensi"
-                app:layout_constraintEnd_toStartOf="@+id/layoutPerizinan"
+                app:layout_constraintStart_toEndOf="@+id/layoutJadwal"
+                app:layout_constraintEnd_toStartOf="@+id/layoutLogout"
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView
@@ -126,12 +126,12 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginBottom="5dp"
-                    android:text="Tugas"/>
+                    android:text="Profile"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/icon_tugas"
+                    android:src="@drawable/karyawan_ic_profile"
                     android:tint="#FFDE59"/>
 
                 <TextView
@@ -142,13 +142,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layoutPerizinan"
+                android:id="@+id/layoutLogout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                app:layout_constraintStart_toEndOf="@+id/layoutTugas"
+                app:layout_constraintStart_toEndOf="@+id/layoutProfile"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
 

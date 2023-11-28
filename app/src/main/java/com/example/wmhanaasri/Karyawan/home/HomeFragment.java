@@ -78,12 +78,21 @@ public class HomeFragment extends Fragment {
         String currentDate = getCurrentDate();
         textView.setText(currentDate);
 
-        LinearLayout layoutPresensi = view.findViewById(R.id.layoutPresensi);
+        LinearLayout layoutJadwal = view.findViewById(R.id.layoutJadwal);
+        LinearLayout layoutProfile = view.findViewById(R.id.layoutJadwal);
 
-        layoutPresensi.setOnClickListener(new View.OnClickListener() {
+        layoutJadwal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), JadwalActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        layoutProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), KaryawanProfileActivity.class);
                 startActivity(intent);
             }
         });
@@ -130,14 +139,6 @@ public class HomeFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, d MMMM yyyy", Locale.getDefault());
         return dateFormat.format(calendar.getTime());
-    }
-
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     void addData(){

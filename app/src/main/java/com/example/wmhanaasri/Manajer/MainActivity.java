@@ -7,6 +7,10 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.wmhanaasri.Manajer.home.HomeFragment;
+import com.example.wmhanaasri.Manajer.karyawan.KaryawanFragment;
+import com.example.wmhanaasri.Manajer.rekap.RekapFragment;
+import com.example.wmhanaasri.Manajer.tugas.TugasFragment;
 import com.example.wmhanaasri.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;

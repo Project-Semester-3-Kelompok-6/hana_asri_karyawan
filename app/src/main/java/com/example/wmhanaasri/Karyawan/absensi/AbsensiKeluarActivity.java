@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -76,6 +77,18 @@ public class AbsensiKeluarActivity extends AppCompatActivity {
         //deklarasi lokasi
         inputLokasi = findViewById(R.id.inputLokasi);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Tambahkan icon back di toolbar
+        toolbar.setNavigationIcon(R.drawable.icon_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Panggil onBackPressed saat tombol back di toolbar diklik
+            }
+        });
 
                 ActivityResultLauncher<Intent> activityResultLauncher =
                         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -261,6 +274,14 @@ public class AbsensiKeluarActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getCurrentLocation();
             }
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack(); // Kembali ke Fragment sebelumnya jika ada dalam back stack
+        } else {
+            super.onBackPressed(); // Jika tidak ada Fragment di back stack, tutup Activity
         }
     }
 }

@@ -38,6 +38,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -75,6 +76,18 @@ public class AbsensiMasukActivity extends AppCompatActivity {
         //deklarasi lokasi
         inputLokasi = findViewById(R.id.inputLokasi);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Tambahkan icon back di toolbar
+        toolbar.setNavigationIcon(R.drawable.icon_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Panggil onBackPressed saat tombol back di toolbar diklik
+            }
+        });
 
 
         ActivityResultLauncher<Intent> activityResultLauncher =
@@ -218,5 +231,14 @@ public class AbsensiMasukActivity extends AppCompatActivity {
             }
         }
     }
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack(); // Kembali ke Fragment sebelumnya jika ada dalam back stack
+        } else {
+            super.onBackPressed(); // Jika tidak ada Fragment di back stack, tutup Activity
+        }
+    }
+
 }
 

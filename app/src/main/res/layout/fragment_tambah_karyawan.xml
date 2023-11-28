@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".TambahKaryawanFragment">
+    tools:context=".Manajer.TambahKaryawanFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -53,7 +53,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/namKaryawan"
+            android:id="@+id/etKaryawan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -61,7 +61,7 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -69,7 +69,7 @@
             android:hint="Email Karyawan"/>
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
