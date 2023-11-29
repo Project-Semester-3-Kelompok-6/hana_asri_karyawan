@@ -1,4 +1,5 @@
 package com.example.wmhanaasri.Manajer.karyawan;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,7 +18,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.wmhanaasri.Connection.DBConnect;
-import com.example.wmhanaasri.Manajer.TambahKaryawanFragment;
 import com.example.wmhanaasri.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -32,6 +31,8 @@ import java.util.Set;
 public class KaryawanFragment extends Fragment {
 
     private FloatingActionButton btnTambah;
+    boolean aBoolean = true;
+
 
     public KaryawanFragment() {
         // Required empty public constructor
@@ -42,9 +43,30 @@ public class KaryawanFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.manajer_fragment_karyawan, container, false);
 
-        btnTambah = view.findViewById(R.id.btnTambahKaryawan);
+        FloatingActionButton btnTambah = view.findViewById(R.id.btnTambahKaryawan);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+        FloatingActionButton btnTambahAkun = view.findViewById(R.id.btnTambahAkun);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+        FloatingActionButton btnTambahDevisi = view.findViewById(R.id.btnTambahDevisi);
+        btnTambahAkun.setVisibility(View.GONE);
+        btnTambahDevisi.setVisibility(View.GONE);
 
         btnTambah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (aBoolean){
+                    btnTambahAkun.setVisibility(View.VISIBLE);
+                    btnTambahDevisi.setVisibility(View.VISIBLE);
+                    aBoolean = false;
+                }else {
+                    btnTambahAkun.setVisibility(View.GONE);
+                    btnTambahDevisi.setVisibility(View.GONE);
+                    aBoolean = true;
+                }
+            }
+        });
+
+        btnTambahAkun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

@@ -1,5 +1,6 @@
 package com.example.wmhanaasri.Manajer.tugas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,55 +19,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TugasFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TugasFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private RecyclerView recyclerView;
     private AktifitasAdapter adapter;
     private ArrayList<com.example.wmhanaasri.ListAktivitas> AktifitasArrayList;
-    private FloatingActionButton btnTambah;
+    private FloatingActionButton btnTambah, btnSesi, btnTugas;
+    boolean aBoolean = true;
 
     public TugasFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TugasFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TugasFragment newInstance(String param1, String param2) {
-        TugasFragment fragment = new TugasFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        // Diperlukan konstruktor kosong saat menggunakan fragment
     }
 
     @Override
@@ -93,20 +55,60 @@ public class TugasFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        //btn tambah tugas
-        btnTambah = view.findViewById(R.id.btnTambah);
+        FloatingActionButton btnTambah = view.findViewById(R.id.btnTambah);
+        FloatingActionButton btnSesi = view.findViewById(R.id.btnSesi);
+        FloatingActionButton btnTugas = view.findViewById(R.id.btnTugas);
+        btnSesi.setVisibility(View.GONE);
+        btnTugas.setVisibility(View.GONE);
         btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                TambahTugasFragment tambahTugas = new TambahTugasFragment();
-
-                // Ganti tampilan fragmen dalam wadah (FrameLayout) dengan fragmen PresensiFragment
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.flFragment, tambahTugas);
-                transaction.addToBackStack(null); // Untuk menambahkan ke back stack
-                transaction.commit();
+            public void onClick(View v) {
+//                btnSesi.setVisibility(View.VISIBLE);
+//                btnTugas.setVisibility(View.VISIBLE);
+                if (aBoolean){
+                    btnSesi.setVisibility(View.VISIBLE);
+                    btnTugas.setVisibility(View.VISIBLE);
+                    aBoolean = false;
+                }else {
+                    btnSesi.setVisibility(View.GONE);
+                    btnTugas.setVisibility(View.GONE);
+                    aBoolean = true;
+                }
             }
         });
+
+        btnSesi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), TambahSesiActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnTugas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), TambahTugasActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //btn tambah tugas
+//        btnTambah = view.findViewById(R.id.btnTambah);
+//        btnSesi = view.findViewById(R.id.btnSesi);
+//        btnTugas = view.findViewById(R.id.btnTugas);
+//        btnTambah.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                TambahTugasFragment tambahTugas = new TambahTugasFragment();
+//
+//                // Ganti tampilan fragmen dalam wadah (FrameLayout) dengan fragmen PresensiFragment
+//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.flFragment, tambahTugas);
+//                transaction.addToBackStack(null); // Untuk menambahkan ke back stack
+//                transaction.commit();
+//            }
+//        });
+
 
         return view;
     }

@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/logout/baseline_logout_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/group_add/baseline_group_add_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -29,7 +29,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ff914c" />
-                            <entry key="outputName" value="karyawan_ic_logout" />
+                            <entry key="outputName" value="manajer_ic_tambahdevisi" />
                             <entry key="sourceFile" value="C:\Kuliah\Season 3\Project Akhir\Mobile\hana_asri_karyawan" />
                           </map>
                         </option>

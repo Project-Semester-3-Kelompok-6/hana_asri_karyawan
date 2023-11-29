@@ -93,8 +93,7 @@ public class TambahKaryawanActivity extends AppCompatActivity {
 
                                     if (success) {
                                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(getApplicationContext(), KaryawanFragment.class);
-                                        startActivity(intent);
+                                        onBackPressed();
                                         finish();
                                     } else {
                                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();

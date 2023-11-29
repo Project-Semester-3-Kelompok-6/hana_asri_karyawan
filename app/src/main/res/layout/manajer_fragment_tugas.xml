@@ -69,11 +69,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            app:fabSize="auto"
             android:elevation="5dp"
             android:src="@drawable/icon_add"
             android:backgroundTint="@color/primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnSesi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:fabSize="auto"
+        android:elevation="5dp"
+        android:src="@drawable/manajer_ic_tambahsesi"
+        android:backgroundTint="@color/primary"
+        app:layout_constraintBottom_toTopOf="@id/btnTambah"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnTugas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:fabSize="auto"
+        android:elevation="5dp"
+        android:src="@drawable/manajer_ic_tambahtugas"
+        android:backgroundTint="@color/primary"
+        app:layout_constraintBottom_toTopOf="@id/btnSesi"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_viewHome"

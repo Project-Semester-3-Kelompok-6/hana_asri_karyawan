@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".KaryawanFragment">
+    tools:context=".Manajer.karyawan.KaryawanFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <View
@@ -71,6 +71,28 @@
         android:backgroundTint="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnTambahAkun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:elevation="5dp"
+        android:src="@drawable/manajer_ic_tambahakun"
+        android:backgroundTint="@color/primary"
+        app:layout_constraintBottom_toTopOf="@id/btnTambahKaryawan"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnTambahDevisi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:elevation="5dp"
+        android:src="@drawable/manajer_ic_tambahdevisi"
+        android:backgroundTint="@color/primary"
+        app:layout_constraintBottom_toTopOf="@id/btnTambahAkun"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_viewHome"
