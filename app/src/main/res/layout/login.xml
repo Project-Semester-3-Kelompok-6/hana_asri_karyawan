@@ -53,6 +53,15 @@
           android:background="@drawable/rounded_textfield"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintBottom_toBottomOf="parent"/>
+   <CheckBox
+       android:id="@+id/showPasswordCheckBox"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Tampilkan Password"
+       android:layout_marginTop="10dp"
+       app:layout_constraintTop_toBottomOf="@+id/etPassword"
+       app:layout_constraintStart_toStartOf="@+id/etPassword" />
+
 
 
    <TextView

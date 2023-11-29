@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,11 @@ import java.util.ArrayList;
 import com.example.wmhanaasri.Karyawan.adapter.AktifitasAdapter;
 
 public class TugasFragment extends Fragment {
+    //dummy
+    private RecyclerView recyclerView;
+    private AktifitasAdapter adapter;
+    private ArrayList<ListAktivitas> AktifitasArrayList;
+    private ImageView imgView;
 
 
     @Override
@@ -30,6 +36,33 @@ public class TugasFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.karyawan_fragment_tugas, container, false);
 
+        //dummy
+        //        View view = inflater.inflate(R.layout.karyawan_fragment_home, container, false);
+        recyclerView = view.findViewById(R.id.recycle_viewTugas);
+
+        // Membuat objek ArrayList Aktifitas
+        AktifitasArrayList = new ArrayList<ListAktivitas>();
+
+        // Menambahkan data ke ArrayList Aktifitas
+        addData();
+
+        // Membuat dan mengatur adapter
+        adapter = new AktifitasAdapter(AktifitasArrayList);
+
+        // Membuat dan mengatur layout manager
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()); // Gunakan getActivity() karena Anda berada dalam fragmen
+
+        // Mengatur layout manager dan adapter untuk RecyclerView
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
         return view;
+    }
+    void addData(){
+        AktifitasArrayList = new ArrayList<>();
+        AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
+        AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
+        AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
+        AktifitasArrayList.add(new ListAktivitas("Restok Bahan", "Rizqi", "15 Oktober 2023"));
     }
 }

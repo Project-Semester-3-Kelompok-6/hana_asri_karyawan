@@ -1,7 +1,7 @@
 package com.example.wmhanaasri.Connection;
 
 public class DBConnect {
-    public static String ip = "192.168.1.7";
+    public static String ip = "192.168.1.9";
 
     //Login URL
     public static final String urlLogin = "http://"+ip+"//API_Mobile/mobile_login.php";

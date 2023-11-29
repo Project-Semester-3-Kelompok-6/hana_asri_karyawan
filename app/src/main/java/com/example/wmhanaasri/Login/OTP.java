@@ -33,6 +33,7 @@ public class OTP extends AppCompatActivity {
 
         String email = getIntent().getExtras().getString("email");
         EditText editTextNewPassword = findViewById(R.id.password);
+        EditText editTextKonfirmasiPassword = findViewById(R.id.konfirPassword);
         EditText editTextOTP = findViewById(R.id.otp);
         Button button = findViewById(R.id.btnUbahPassword);
         ProgressBar progressBar = findViewById(R.id.progress);
@@ -40,6 +41,36 @@ public class OTP extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Validasi OTP
+                String otp = editTextOTP.getText().toString().trim();
+                if (otp.isEmpty()) {
+                    editTextOTP.setError("Masukkan kode OTP");
+                    editTextOTP.requestFocus();
+                    return;
+                }
+
+                // Validasi password
+                String password = editTextNewPassword.getText().toString().trim();
+                String konfirmasiPassword = editTextKonfirmasiPassword.getText().toString().trim();
+                if (password.isEmpty()) {
+                    editTextNewPassword.setError("Masukkan Password Baru");
+                    editTextNewPassword.requestFocus();
+                    return;
+                }
+
+                if (password.length() < 6) {
+                    editTextNewPassword.setError("Password minimal 6 karakter");
+                    editTextNewPassword.requestFocus();
+                    return;
+                }
+
+                if (!password.equals(konfirmasiPassword)) {
+                    editTextKonfirmasiPassword.setError("Password tidak cocok");
+                    editTextKonfirmasiPassword.requestFocus();
+                    return;
+                }
+
                 progressBar.setVisibility(View.VISIBLE);
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
