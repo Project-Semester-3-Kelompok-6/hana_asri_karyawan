@@ -151,6 +151,8 @@ public class AbsensiKeluarActivity extends AppCompatActivity {
                                 public void onResponse(String response) {
                                     if (response.equals("success")) {
                                         Toast.makeText(getApplicationContext(), "Absensi berhasil disimpan", Toast.LENGTH_SHORT).show();
+                                        onBackPressed();
+                                        finish();
                                     } else {
                                         Toast.makeText(getApplicationContext(), "Gagal menyimpan absensi", Toast.LENGTH_LONG).show();
                                     }
