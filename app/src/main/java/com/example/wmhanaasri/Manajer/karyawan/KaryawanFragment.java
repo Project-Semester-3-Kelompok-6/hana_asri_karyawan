@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,6 +20,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.wmhanaasri.Connection.DBConnect;
+import com.example.wmhanaasri.Karyawan.adapter.AktifitasAdapter;
+import com.example.wmhanaasri.ListAktivitas;
 import com.example.wmhanaasri.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -25,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,21 +37,23 @@ public class KaryawanFragment extends Fragment {
 
     private FloatingActionButton btnTambah;
     boolean aBoolean = true;
+    private RecyclerView recyclerView;
+    private AktifitasAdapter adapter;
+    private ArrayList<ListAktivitas> AktifitasArrayList;
 
 
     public KaryawanFragment() {
         // Required empty public constructor
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.manajer_fragment_karyawan, container, false);
 
         FloatingActionButton btnTambah = view.findViewById(R.id.btnTambahKaryawan);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
         FloatingActionButton btnTambahAkun = view.findViewById(R.id.btnTambahAkun);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
         FloatingActionButton btnTambahDevisi = view.findViewById(R.id.btnTambahDevisi);
         btnTambahAkun.setVisibility(View.GONE);
         btnTambahDevisi.setVisibility(View.GONE);
@@ -135,6 +142,34 @@ public class KaryawanFragment extends Fragment {
             }
         });
 
+        //dummy
+        //        View view = inflater.inflate(R.layout.karyawan_fragment_home, container, false);
+        recyclerView = view.findViewById(R.id.recycle_viewKaryawan);
+
+        // Membuat objek ArrayList Aktifitas
+        AktifitasArrayList = new ArrayList<ListAktivitas>();
+
+        // Menambahkan data ke ArrayList Aktifitas
+        addData();
+
+        // Membuat dan mengatur adapter
+        adapter = new AktifitasAdapter(AktifitasArrayList);
+
+        // Membuat dan mengatur layout manager
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()); // Gunakan getActivity() karena Anda berada dalam fragmen
+
+        // Mengatur layout manager dan adapter untuk RecyclerView
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+
         return view;
+    }
+    void addData(){
+        AktifitasArrayList = new ArrayList<>();
+        AktifitasArrayList.add(new ListAktivitas("Karyawan Baru", "Gilang", "14 Oktober 2023"));
+        AktifitasArrayList.add(new ListAktivitas("Karyawan Baru", "Sinta", "14 Oktober 2023"));
+        AktifitasArrayList.add(new ListAktivitas("Karyawan Baru", "Aji", "14 Oktober 2023"));
+        AktifitasArrayList.add(new ListAktivitas("Karyawan Baru", "Rizqi", "15 Oktober 2023"));
     }
 }

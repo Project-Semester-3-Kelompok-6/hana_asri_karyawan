@@ -1,11 +1,13 @@
 package com.example.wmhanaasri.Manajer.home;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -14,53 +16,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wmhanaasri.ListAktivitas;
+import com.example.wmhanaasri.Login.LoginActivity;
 import com.example.wmhanaasri.Manajer.AktifitasAdapter;
 import com.example.wmhanaasri.Manajer.PresensiFragment;
 import com.example.wmhanaasri.R;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private AktifitasAdapter adapter;
     private ArrayList<ListAktivitas> AktifitasArrayList;
-    private ImageView imgView;
+    private ImageView imgView,btnTugas,btnProfile;
     private TextView textView;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -68,6 +42,8 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         View view = inflater.inflate(R.layout.manajer_fragment_home, container, false);
+
+
         recyclerView = view.findViewById(R.id.recycle_viewHome);
 
         // Membuat objek ArrayList Aktifitas
@@ -87,6 +63,17 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         imgView = view.findViewById(R.id.btnPresensi);
+        btnTugas = view.findViewById(R.id.btnTugas);
+        btnProfile = view.findViewById(R.id.btnProfile);
+
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireContext(), LoginActivity.class);
+                startActivity(intent);
+                requireActivity().finish();
+            }
+        });
         imgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,13 +107,6 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     void addData(){
         AktifitasArrayList = new ArrayList<>();

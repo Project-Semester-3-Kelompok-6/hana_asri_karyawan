@@ -38,7 +38,7 @@ public class TugasFragment extends Fragment {
 
         //dummy
         //        View view = inflater.inflate(R.layout.karyawan_fragment_home, container, false);
-        recyclerView = view.findViewById(R.id.recycle_viewTugas);
+        recyclerView = view.findViewById(R.id.recycler_viewTugas);
 
         // Membuat objek ArrayList Aktifitas
         AktifitasArrayList = new ArrayList<ListAktivitas>();

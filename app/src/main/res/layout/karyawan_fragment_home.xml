@@ -126,12 +126,12 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginBottom="5dp"
-                    android:text="Profile"/>
+                    android:text="Tugas"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/karyawan_ic_profile"
+                    android:src="@drawable/icon_tugas"
                     android:tint="#FFDE59"/>
 
                 <TextView
@@ -161,6 +161,7 @@
                     android:text="Logout"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btn_logout"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:src="@drawable/karyawan_ic_logout"
