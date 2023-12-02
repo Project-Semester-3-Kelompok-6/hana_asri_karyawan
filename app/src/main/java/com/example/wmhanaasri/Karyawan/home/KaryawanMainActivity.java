@@ -2,6 +2,7 @@ package com.example.wmhanaasri.Karyawan.home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
@@ -19,11 +20,11 @@ import com.example.wmhanaasri.Karyawan.adapter.ViewPagerAdapter;
 
 public class KaryawanMainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
-    private BottomNavigationView bottomNavigationView;
-    private HomeFragment homeFragment = new HomeFragment();
-    private AbsensiFragment tugasFragment = new AbsensiFragment();
-    private TugasFragment rekapFragment = new TugasFragment();
-    private IzinFragment karyawanFragment = new IzinFragment();
+    BottomNavigationView bottomNavigationView;
+    private HomeFragment homeFragment;
+    private AbsensiFragment tugasFragment;
+    private TugasFragment rekapFragment;
+    private IzinFragment karyawanFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,31 +34,40 @@ public class KaryawanMainActivity extends AppCompatActivity implements Navigatio
         bottomNavigationView.setOnItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home);
 
+        // Inisialisasi fragment di sini
+        homeFragment = new HomeFragment();
+        tugasFragment = new AbsensiFragment();
+        rekapFragment = new TugasFragment();
+        karyawanFragment = new IzinFragment();
+
         //gawe swipe per fragment
         ViewPager2 viewPager = findViewById(R.id.view_pager);
-
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(adapter);
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        int position = 0;       //gawe nentukan posisi tab sng digawe karo ViewPager beno iso diswipe
+        Fragment selectedFragment = null;
+
+        int itemId = item.getItemId(); // Simpan nilai item.getItemId() dalam variabel itemId
 
         if (itemId == R.id.home) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, homeFragment).commit();
-            return true;
+            selectedFragment = new HomeFragment();
         } else if (itemId == R.id.absensi) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, tugasFragment).commit();
-            return true;
+            selectedFragment = new AbsensiFragment();
         } else if (itemId == R.id.tugas) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, rekapFragment).commit();
-            return true;
+            selectedFragment = new TugasFragment();
         } else if (itemId == R.id.izin) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, karyawanFragment).commit();
+            selectedFragment = new IzinFragment();
+        }
+
+        if (selectedFragment != null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, selectedFragment).commit();
             return true;
         }
+
         return false;
     }
+
 }
