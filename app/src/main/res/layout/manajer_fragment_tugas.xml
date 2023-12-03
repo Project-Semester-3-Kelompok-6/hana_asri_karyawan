@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".TugasFragment">
+    tools:context=".Manajer.tugas.TugasManajerFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <View
@@ -29,40 +29,47 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
 
-        <TextView
-            android:id="@+id/btnDitugaskan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="80dp"
-            android:text="Ditugaskan"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnSelesai"
-            app:layout_constraintTop_toBottomOf="@id/txtTugas"/>
+    <LinearLayout
+        android:id="@+id/layoutStat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTugas"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:id="@+id/btnSelesai"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="80dp"
-            android:text="Selesai"
-            app:layout_constraintStart_toEndOf="@id/btnDitugaskan"
-            app:layout_constraintEnd_toStartOf="@id/btnTerlambat"
-            app:layout_constraintTop_toBottomOf="@id/txtTugas" />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabKaryawan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/btnTerlambat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="80dp"
-            android:text="Terlambat"
-            app:layout_constraintStart_toEndOf="@id/btnSelesai"
-            app:layout_constraintEnd_toEndOf="@id/headerTugas"
-            app:layout_constraintTop_toBottomOf="@id/txtTugas"/>
+            <com.google.android.material.tabs.TabItem
+                android:text="Ditugaskan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:text="Selesai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <com.google.android.material.tabs.TabItem
+                android:text="Sesi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerTugasManager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+
+    </LinearLayout>
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnTambah"
@@ -99,14 +106,5 @@
         app:layout_constraintBottom_toTopOf="@id/btnSesi"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_viewHome"
-        android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/headerTugas"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

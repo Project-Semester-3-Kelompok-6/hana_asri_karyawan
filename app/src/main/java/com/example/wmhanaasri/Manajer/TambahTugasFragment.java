@@ -16,7 +16,7 @@ import android.widget.SpinnerAdapter;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.wmhanaasri.Manajer.tugas.TugasFragment;
+import com.example.wmhanaasri.Manajer.tugas.TugasManajerFragment;
 import com.example.wmhanaasri.R;
 
 import java.util.Calendar;
@@ -130,11 +130,11 @@ public class TambahTugasFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TugasFragment tugasFragment = new TugasFragment();
+                TugasManajerFragment tugasManajerFragment = new TugasManajerFragment();
 
                 // Ganti tampilan fragmen dalam wadah (FrameLayout) dengan fragmen PresensiFragment
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.flFragment, tugasFragment);
+                transaction.replace(R.id.flFragment, tugasManajerFragment);
                 transaction.addToBackStack(null); // Untuk menambahkan ke back stack
                 transaction.commit();
             }

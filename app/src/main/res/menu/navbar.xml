@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/home"
+        android:id="@+id/homeManajer"
         android:title="Home"
         android:icon="@drawable/icon_home"/>
 
     <item
-        android:id="@+id/tugas"
+        android:id="@+id/tugasManajer"
         android:title="Tugas"
         android:icon="@drawable/icon_tugas"/>
 
     <item
-        android:id="@+id/rekap"
+        android:id="@+id/rekapManajer"
         android:title="Rekap"
         android:icon="@drawable/icon_rekap"/>
 
     <item
-        android:id="@+id/karyawan"
+        android:id="@+id/karyawanManajer"
         android:title="Karyawan"
         android:icon="@drawable/icon_karyawan"/>
 </menu>

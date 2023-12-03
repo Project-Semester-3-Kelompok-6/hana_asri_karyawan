@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wmhanaasri.Manajer.home.HomeFragment;
+import com.example.wmhanaasri.Manajer.home.ManajerHomeFragment;
 import com.example.wmhanaasri.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -103,10 +103,10 @@ public class PresensiFragment extends Fragment {
         imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HomeFragment homeFragment = new HomeFragment();
+                ManajerHomeFragment manajerHomeFragment = new ManajerHomeFragment();
 
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.flFragment, homeFragment);
+                transaction.replace(R.id.flFragment, manajerHomeFragment);
                 transaction.addToBackStack(null); // Untuk menambahkan ke back stack
                 transaction.commit();
             }

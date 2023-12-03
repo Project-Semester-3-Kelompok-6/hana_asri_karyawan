@@ -8,10 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,9 +23,12 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.wmhanaasri.Connection.DBConnect;
 import com.example.wmhanaasri.Karyawan.adapter.AktifitasAdapter;
+import com.example.wmhanaasri.Karyawan.tugas.adapter.TugasKaryawanAdapter;
 import com.example.wmhanaasri.ListAktivitas;
+import com.example.wmhanaasri.Manajer.karyawan.adapter.KaryawanManajerAdapter;
 import com.example.wmhanaasri.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +46,11 @@ public class KaryawanFragment extends Fragment {
     private AktifitasAdapter adapter;
     private ArrayList<ListAktivitas> AktifitasArrayList;
 
+    TabLayout tabLayout;
+    ViewPager2 viewPager2;
+    KaryawanManajerAdapter karyawanManajerAdapter;
+    FrameLayout frameLayout;
+
 
     public KaryawanFragment() {
         // Required empty public constructor
@@ -57,6 +67,13 @@ public class KaryawanFragment extends Fragment {
         FloatingActionButton btnTambahDevisi = view.findViewById(R.id.btnTambahDevisi);
         btnTambahAkun.setVisibility(View.GONE);
         btnTambahDevisi.setVisibility(View.GONE);
+
+
+        tabLayout = view.findViewById(R.id.tabKaryawan);
+        viewPager2 = view.findViewById(R.id.viewPagerKaryawan);
+//        karyawanManajerAdapter = new TugasKaryawanAdapter(this);
+        viewPager2.setAdapter(karyawanManajerAdapter);
+        frameLayout = view.findViewById(R.id.sedangDikerjakan);
 
         btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,34 +159,8 @@ public class KaryawanFragment extends Fragment {
             }
         });
 
-        //dummy
-        //        View view = inflater.inflate(R.layout.karyawan_fragment_home, container, false);
-        recyclerView = view.findViewById(R.id.recycle_viewKaryawan);
-
-        // Membuat objek ArrayList Aktifitas
-        AktifitasArrayList = new ArrayList<ListAktivitas>();
-
-        // Menambahkan data ke ArrayList Aktifitas
-        addData();
-
-        // Membuat dan mengatur adapter
-        adapter = new AktifitasAdapter(AktifitasArrayList);
-
-        // Membuat dan mengatur layout manager
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()); // Gunakan getActivity() karena Anda berada dalam fragmen
-
-        // Mengatur layout manager dan adapter untuk RecyclerView
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
 
 
         return view;
-    }
-    void addData(){
-        AktifitasArrayList = new ArrayList<>();
-        AktifitasArrayList.add(new ListAktivitas("Karyawan Baru", "Gilang", "14 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Karyawan Baru", "Sinta", "14 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Karyawan Baru", "Aji", "14 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Karyawan Baru", "Rizqi", "15 Oktober 2023"));
     }
 }
