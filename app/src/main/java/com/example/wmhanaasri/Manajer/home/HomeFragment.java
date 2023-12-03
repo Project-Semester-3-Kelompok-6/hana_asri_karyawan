@@ -1,7 +1,9 @@
 package com.example.wmhanaasri.Manajer.home;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +23,10 @@ import com.example.wmhanaasri.Manajer.AktifitasAdapter;
 import com.example.wmhanaasri.Manajer.PresensiFragment;
 import com.example.wmhanaasri.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -29,6 +34,9 @@ public class HomeFragment extends Fragment {
     private ArrayList<ListAktivitas> AktifitasArrayList;
     private ImageView imgView,btnTugas,btnProfile;
     private TextView textView;
+    private TextView textViewNama,textViewJabatan;
+    SharedPreferences sharedPreferences;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -42,6 +50,20 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         View view = inflater.inflate(R.layout.manajer_fragment_home, container, false);
+        TextView textView = view.findViewById(R.id.tanggal);
+        textViewNama = view.findViewById(R.id.tv_user);
+        textViewJabatan = view.findViewById(R.id.jabatan);
+
+        //atur nama dan jabatan
+        SharedPreferences preferences = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+        String nama = preferences.getString("nama", "");
+        String jabatan = preferences.getString("jabatan", "");
+        textViewNama.setText(nama);
+        textViewJabatan.setText(jabatan);
+
+        String currentDate = getCurrentDate();
+        textView.setText(currentDate);
+
 
 
         recyclerView = view.findViewById(R.id.recycle_viewHome);
@@ -105,6 +127,11 @@ public class HomeFragment extends Fragment {
 
         // view
         return view;
+    }
+    private String getCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, d MMMM yyyy", Locale.getDefault());
+        return dateFormat.format(calendar.getTime());
     }
 
 

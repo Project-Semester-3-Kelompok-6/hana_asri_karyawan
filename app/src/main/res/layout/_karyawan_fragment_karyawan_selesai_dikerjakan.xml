@@ -5,10 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".Karyawan.tugas.KaryawanSelesaiDikerjakan">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <!-- RecyclerView to display completed tasks -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_karyawanSelesaiDikerjakan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Selesai Dikerjakan" />
+        android:layout_margin="10dp" />
 
 </FrameLayout>
