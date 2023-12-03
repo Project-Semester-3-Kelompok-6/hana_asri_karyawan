@@ -11,12 +11,10 @@ public class DBConnect {
 
     //Karyawan URL
     public static final String urlAbsensiMasuk = "http://"+ip+"//API_Mobile/absensi.php";
-    public static final String tugasDikerjakan = "http://"+ip+"//API_Mobile/list-job-dikerjakan.php";
+    public static final String tugasSedang = "http://"+ip+"//API_Mobile/list-job-dikerjakan.php";
     public static final String tugasSelesai = "http://"+ip+"//API_Mobile/list-job-selesai.php";
 
-//    public static final String urlAbsensiKeluar = "http://"+ip+"//API_Mobile/mobile_login.php";
-    public static final String urlTugas = "http://"+ip+"//API_Mobile/mobile_login.php";
-    public static final String urlIzin = "http://"+ip+"//API_Mobile/mobile_login.php";
+    public static final String perizinan = "http://"+ip+"//API_Mobile/perizinan.php";
 
     //Manajer URL
     public static final String getDevisi = "http://"+ip+"//API_Mobile/getDevisi.php";

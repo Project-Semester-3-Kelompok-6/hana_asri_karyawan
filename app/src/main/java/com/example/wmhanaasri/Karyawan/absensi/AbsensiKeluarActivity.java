@@ -3,7 +3,9 @@ package com.example.wmhanaasri.Karyawan.absensi;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -76,6 +78,11 @@ public class AbsensiKeluarActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
         //deklarasi lokasi
         inputLokasi = findViewById(R.id.inputLokasi);
+
+
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+        String karyawanID = preferences.getString("id", "1");
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -167,7 +174,7 @@ public class AbsensiKeluarActivity extends AppCompatActivity {
                         @Override
                         protected Map<String, String> getParams() {
                             Map<String, String> params = new HashMap<>();
-                            params.put("KaryawanID", "1"); // Ganti dengan ID Karyawan yang sesuai
+                            params.put("KaryawanID", karyawanID); // Ganti dengan ID Karyawan yang sesuai
                             params.put("Tanggal", inputTanggal.getText().toString()); // Ganti dengan tanggal yang sesuai
                             params.put("Status", "Keluar"); // Ganti dengan status yang sesuai
                             params.put("Lokasi", inputLokasi.getText().toString()); // Ganti dengan lokasi yang sesuai

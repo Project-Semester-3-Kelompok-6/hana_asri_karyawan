@@ -75,7 +75,7 @@ public class KaryawanSelesaiDikerjakan extends Fragment {
                                     editor.putString("BuktiFoto" + i, obj.getString("BuktiFoto"));
                                 }
                                 editor.apply();
-                                Toast.makeText(requireContext(), "Data disimpan di SharedPreferences", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(requireContext(), "Diperbarui", Toast.LENGTH_SHORT).show();
 
                                 // Hitung jumlah data yang disimpan dalam SharedPreferences
                                 int dataSize = 0;

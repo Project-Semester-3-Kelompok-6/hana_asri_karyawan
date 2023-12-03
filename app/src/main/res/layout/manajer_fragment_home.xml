@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/namaUser"
+        android:id="@+id/tv_userManajer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -29,31 +29,23 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/jabatan"
+        android:id="@+id/jabatanManajer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Manajer"
         android:textColor="@color/white"
         android:layout_marginHorizontal="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/namaUser"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/notif"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginHorizontal="10dp"
-        android:src="@drawable/icon_notif"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/namaUser"
-        app:layout_constraintBottom_toBottomOf="@+id/namaUser"/>
+
 
     <TextView
         android:id="@+id/tanggal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="Rabu, 11 Oktober 2023"
+        android:text="Selasa, 5 Desember 2023"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/layoutDashboard"

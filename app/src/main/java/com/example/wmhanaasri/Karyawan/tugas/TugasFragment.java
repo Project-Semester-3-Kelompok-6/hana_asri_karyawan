@@ -86,32 +86,7 @@ public class TugasFragment extends Fragment {
         });
 
 
-        //dummy
-        recyclerView = view.findViewById(R.id.recycler_viewTugas);
-
-        // Membuat objek ArrayList Aktifitas
-        AktifitasArrayList = new ArrayList<ListAktivitas>();
-
-        // Menambahkan data ke ArrayList Aktifitas
-        addData();
-
-        // Membuat dan mengatur adapter
-        adapter = new AktifitasAdapter(AktifitasArrayList);
-
-        // Membuat dan mengatur layout manager
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()); // Gunakan getActivity() karena Anda berada dalam fragmen
-
-        // Mengatur layout manager dan adapter untuk RecyclerView
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
 
         return view;
-    }
-    void addData(){
-        AktifitasArrayList = new ArrayList<>();
-        AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Restok Bahan", "Rizqi", "15 Oktober 2023"));
     }
 }

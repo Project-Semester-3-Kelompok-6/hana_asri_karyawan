@@ -49,11 +49,11 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_user"/>
 
     <TextView
-        android:id="@+id/tanggal"
+        android:id="@+id/tanggalManajer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="Rabu, 11 Oktober 2023"
+        android:text="Selasa, 5 Desember 2023"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/layoutDashboard"

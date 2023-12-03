@@ -69,9 +69,6 @@ public class HomeFragment extends Fragment {
         textViewNama.setText(nama);
         textViewJabatan.setText(jabatan);
 
-        String currentDate = getCurrentDate();
-        textView.setText(currentDate);
-
 
         LinearLayout layoutJadwal = view.findViewById(R.id.layoutJadwal);
         LinearLayout layoutProfile = view.findViewById(R.id.layoutProfile);
@@ -197,11 +194,6 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private String getCurrentDate() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, d MMMM yyyy", Locale.getDefault());
-        return dateFormat.format(calendar.getTime());
-    }
 
     void addData(){
         AktifitasArrayList = new ArrayList<>();

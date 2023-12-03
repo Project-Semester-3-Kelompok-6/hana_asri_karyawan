@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<ListAktivitas> AktifitasArrayList;
     private ImageView imgView,btnTugas,btnProfile;
     private TextView textView;
-    private TextView textViewNama,textViewJabatan;
+    private TextView textViewNamaManajer,textViewJabatanManajer;
     SharedPreferences sharedPreferences;
 
 
@@ -50,20 +50,16 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         View view = inflater.inflate(R.layout.manajer_fragment_home, container, false);
-        TextView textView = view.findViewById(R.id.tanggal);
-        textViewNama = view.findViewById(R.id.tv_user);
-        textViewJabatan = view.findViewById(R.id.jabatan);
+        TextView textViewtanggal = view.findViewById(R.id.tanggalManajer);
+        textViewNamaManajer = view.findViewById(R.id.tv_userManajer);
+        textViewJabatanManajer = view.findViewById(R.id.jabatanManajer);
 
         //atur nama dan jabatan
         SharedPreferences preferences = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         String nama = preferences.getString("nama", "");
         String jabatan = preferences.getString("jabatan", "");
-        textViewNama.setText(nama);
-        textViewJabatan.setText(jabatan);
-
-        String currentDate = getCurrentDate();
-        textView.setText(currentDate);
-
+        textViewNamaManajer.setText(nama);
+        textViewJabatanManajer.setText(jabatan);
 
 
         recyclerView = view.findViewById(R.id.recycle_viewHome);
@@ -110,29 +106,11 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//        imgView = view.findViewById(R.id.btnTugas);
-//        imgView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // Buat objek PresensiFragment
-//                TugasFragment tugasFragment = new TugasFragment();
-//
-//                // Ganti tampilan fragmen dalam wadah (FrameLayout) dengan fragmen PresensiFragment
-//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                transaction.replace(R.id.flFragment, tugasFragment);
-//                transaction.addToBackStack(null); // Untuk menambahkan ke back stack
-//                transaction.commit();
-//            }
-//        });
 
         // view
         return view;
     }
-    private String getCurrentDate() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, d MMMM yyyy", Locale.getDefault());
-        return dateFormat.format(calendar.getTime());
-    }
+
 
 
     void addData(){
