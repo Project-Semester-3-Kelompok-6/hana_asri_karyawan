@@ -3,6 +3,9 @@ package com.example.wmhanaasri.Connection;
 public class DBConnect {
     public static String ip = "192.168.1.14";
 
+    public static final String BaseUrl = "http://"+ip+"//API_Mobile/";
+
+
     //Login URL
     public static final String urlLogin = "http://"+ip+"//API_Mobile/mobile_login.php";
     public static final String urlLupaPassword = "http://"+ip+"//API_Mobile/reset-password.php";
@@ -15,6 +18,8 @@ public class DBConnect {
     public static final String tugasSelesai = "http://"+ip+"//API_Mobile/list-job-selesai.php";
 
     public static final String perizinan = "http://"+ip+"//API_Mobile/perizinan.php";
+    public static final String listIzin = "http://"+ip+"//API_Mobile/list-perizinan.php";
+    public static final String listAbsensi = "http://"+ip+"//API_Mobile/list-absensi.php";
 
     //Manajer URL
     public static final String getDevisi = "http://"+ip+"//API_Mobile/getDevisi.php";
