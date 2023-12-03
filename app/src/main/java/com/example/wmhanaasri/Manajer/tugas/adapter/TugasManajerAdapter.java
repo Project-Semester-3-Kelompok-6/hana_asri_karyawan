@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.wmhanaasri.Manajer.TambahSesiFragment;
 import com.example.wmhanaasri.Manajer.karyawan.KaryawanTetap;
 import com.example.wmhanaasri.Manajer.karyawan.KaryawanTidakTetap;
 import com.example.wmhanaasri.Manajer.tugas.TugasManajerDitugaskan;
 import com.example.wmhanaasri.Manajer.tugas.TugasManajerFragment;
 import com.example.wmhanaasri.Manajer.tugas.TugasManajerSelesai;
+import com.example.wmhanaasri.Manajer.tugas.TugasManajerSesi;
 
 public class TugasManajerAdapter extends FragmentStateAdapter {
     public TugasManajerAdapter(@NonNull TugasManajerFragment fragmentActivity) {
@@ -21,6 +23,7 @@ public class TugasManajerAdapter extends FragmentStateAdapter {
         switch (position){
             case 0: return new TugasManajerDitugaskan();
             case 1: return new TugasManajerSelesai();
+            case 2: return new TugasManajerSesi();
             default: return  new TugasManajerDitugaskan();
         }
 
@@ -28,6 +31,6 @@ public class TugasManajerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 3;
     }
 }

@@ -1,17 +1,23 @@
 package com.example.wmhanaasri.Manajer.tugas;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.wmhanaasri.Karyawan.tugas.adapter.TugasKaryawanAdapter;
 import com.example.wmhanaasri.Manajer.AktifitasAdapter;
+import com.example.wmhanaasri.Manajer.tugas.adapter.TugasManajerAdapter;
 import com.example.wmhanaasri.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
@@ -22,11 +28,16 @@ public class TugasManajerFragment extends Fragment {
     private ArrayList<com.example.wmhanaasri.ListAktivitas> AktifitasArrayList;
     private FloatingActionButton btnTambah, btnSesi, btnTugas;
     boolean aBoolean = true;
+    TabLayout tabLayoutManajer;
+    ViewPager2 viewPager2;
+    TugasManajerAdapter tugasManajerAdapter;
+    FrameLayout frameLayout;
 
     public TugasManajerFragment() {
         // Diperlukan konstruktor kosong saat menggunakan fragment
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,6 +50,45 @@ public class TugasManajerFragment extends Fragment {
         FloatingActionButton btnTugas = view.findViewById(R.id.btnTugas);
         btnSesi.setVisibility(View.GONE);
         btnTugas.setVisibility(View.GONE);
+
+        tabLayoutManajer = view.findViewById(R.id.tabTugasManajer);
+        viewPager2 = view.findViewById(R.id.viewPagerTugasManager);
+        tugasManajerAdapter = new TugasManajerAdapter(this);
+        viewPager2.setAdapter(tugasManajerAdapter);
+        frameLayout = view.findViewById(R.id.sedangDitugaskanManajer);
+
+        tabLayoutManajer.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager2.setVisibility(View.VISIBLE);
+                frameLayout.setVisibility(View.GONE);
+                viewPager2.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                viewPager2.setVisibility(View.VISIBLE);
+                frameLayout.setVisibility(View.GONE);
+            }
+        });
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                    case 1:
+                    case 2:
+                        tabLayoutManajer.getTabAt(position).select();
+                }
+                super.onPageSelected(position);
+            }
+        });
         btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -26,6 +26,7 @@ import com.example.wmhanaasri.Karyawan.adapter.AktifitasAdapter;
 import com.example.wmhanaasri.Karyawan.tugas.adapter.TugasKaryawanAdapter;
 import com.example.wmhanaasri.ListAktivitas;
 import com.example.wmhanaasri.Manajer.karyawan.adapter.KaryawanManajerAdapter;
+import com.example.wmhanaasri.Manajer.tugas.adapter.TugasManajerAdapter;
 import com.example.wmhanaasri.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -46,7 +47,7 @@ public class KaryawanFragment extends Fragment {
     private AktifitasAdapter adapter;
     private ArrayList<ListAktivitas> AktifitasArrayList;
 
-    TabLayout tabLayout;
+    TabLayout tabLayoutKaryawanManajer;
     ViewPager2 viewPager2;
     KaryawanManajerAdapter karyawanManajerAdapter;
     FrameLayout frameLayout;
@@ -69,11 +70,44 @@ public class KaryawanFragment extends Fragment {
         btnTambahDevisi.setVisibility(View.GONE);
 
 
-        tabLayout = view.findViewById(R.id.tabKaryawan);
-        viewPager2 = view.findViewById(R.id.viewPagerKaryawan);
-//        karyawanManajerAdapter = new TugasKaryawanAdapter(this);
+        tabLayoutKaryawanManajer = view.findViewById(R.id.tabKaryawanManajer);
+        viewPager2 = view.findViewById(R.id.viewPagerKaryawanManajer);
+        karyawanManajerAdapter = new KaryawanManajerAdapter(this);
         viewPager2.setAdapter(karyawanManajerAdapter);
-        frameLayout = view.findViewById(R.id.sedangDikerjakan);
+        frameLayout = view.findViewById(R.id.karyawanListManajer);
+
+        tabLayoutKaryawanManajer.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager2.setVisibility(View.VISIBLE);
+                frameLayout.setVisibility(View.GONE);
+                viewPager2.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                viewPager2.setVisibility(View.VISIBLE);
+                frameLayout.setVisibility(View.GONE);
+            }
+        });
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                    case 1:
+                    case 2:
+                        tabLayoutKaryawanManajer.getTabAt(position).select();
+                }
+                super.onPageSelected(position);
+            }
+        });
 
         btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +193,13 @@ public class KaryawanFragment extends Fragment {
             }
         });
 
+        btnTambahDevisi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), TambahDevisiActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         return view;

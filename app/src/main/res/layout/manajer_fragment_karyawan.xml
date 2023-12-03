@@ -40,7 +40,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabKaryawan"
+            android:id="@+id/tabKaryawanManajer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -59,7 +59,13 @@
                 android:layout_height="wrap_content"/>
         </com.google.android.material.tabs.TabLayout>
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPagerKaryawan"
+            android:id="@+id/viewPagerKaryawanManajer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <FrameLayout
+            android:id="@+id/karyawanListManajer"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
