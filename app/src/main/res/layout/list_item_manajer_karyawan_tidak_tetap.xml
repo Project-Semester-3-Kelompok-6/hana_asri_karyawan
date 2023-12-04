@@ -28,7 +28,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/karyawan_ic_tugas_fragment"
+                android:background="@drawable/manajer_ic_karyawan"
                 android:elevation="5dp"/>
 
         </androidx.cardview.widget.CardView>

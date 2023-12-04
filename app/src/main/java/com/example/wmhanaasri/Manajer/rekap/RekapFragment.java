@@ -5,70 +5,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.wmhanaasri.ListAktivitas;
 import com.example.wmhanaasri.Manajer.AktifitasAdapter;
+import com.example.wmhanaasri.Manajer.karyawan.adapter.KaryawanManajerAdapter;
+import com.example.wmhanaasri.Manajer.rekap.adapter.RekapAdapter;
 import com.example.wmhanaasri.R;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RekapFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RekapFragment extends Fragment {
 
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    private Spinner spinner;
-    private SpinnerAdapter adapter;
-    private RecyclerView recyclerView;
-    private AktifitasAdapter adapterRecycler;
-    private ArrayList<com.example.wmhanaasri.ListAktivitas> AktifitasArrayList;
-
+    TabLayout tabLayoutRekapManajer;
+    ViewPager2 viewPager2;
+    RekapAdapter rekapAdapter;
+    FrameLayout frameLayout;
     public RekapFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RekapFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RekapFragment newInstance(String param1, String param2) {
-        RekapFragment fragment = new RekapFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -77,45 +39,47 @@ public class RekapFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.manajer_fragment_rekap, container, false);
-        spinner = view.findViewById(R.id.spinnerRekap);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireActivity(), android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter.add("Tugas");
-        adapter.add("Presensi");
+        tabLayoutRekapManajer = view.findViewById(R.id.tabRekapManajer);
+        viewPager2 = view.findViewById(R.id.viewPagerRekapManajer);
+        rekapAdapter = new RekapAdapter(this);
+        viewPager2.setAdapter(rekapAdapter);
+        frameLayout = view.findViewById(R.id.listRekapManajer);
 
+        tabLayoutRekapManajer.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager2.setVisibility(View.VISIBLE);
+                frameLayout.setVisibility(View.GONE);
+                viewPager2.setCurrentItem(tab.getPosition());
+            }
 
-        spinner.setAdapter(adapter); // Mengatur adapter ke Spinner
-        spinner.setSelection(0); // Memilih item "Presensi" sebagai item default
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-        //recycler view
-        recyclerView = view.findViewById(R.id.recycle_viewHome);
+            }
 
-        // Membuat objek ArrayList Aktifitas
-        AktifitasArrayList = new ArrayList<com.example.wmhanaasri.ListAktivitas>();
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                viewPager2.setVisibility(View.VISIBLE);
+                frameLayout.setVisibility(View.GONE);
+            }
+        });
 
-        // Menambahkan data ke ArrayList Aktifitas
-        addData();
-
-        // Membuat dan mengatur adapter
-        adapterRecycler = new AktifitasAdapter(AktifitasArrayList);
-
-        // Membuat dan mengatur layout manager
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()); // Gunakan getActivity() karena Anda berada dalam fragmen
-
-        // Mengatur layout manager dan adapter untuk RecyclerView
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapterRecycler);
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                    case 1:
+                    case 2:
+                        tabLayoutRekapManajer.getTabAt(position).select();
+                }
+                super.onPageSelected(position);
+            }
+        });
 
         return view;
     }
 
-    void addData() {
-        AktifitasArrayList = new ArrayList<>();
-        AktifitasArrayList.add(new com.example.wmhanaasri.ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
-        AktifitasArrayList.add(new com.example.wmhanaasri.ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
-        AktifitasArrayList.add(new com.example.wmhanaasri.ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
-        AktifitasArrayList.add(new com.example.wmhanaasri.ListAktivitas("Restok Bahan", "Rizqi", "15 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Restok Bahan", "Rizqi", "15 Oktober 2023"));
-    }
 }

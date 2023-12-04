@@ -31,5 +31,7 @@ public class DBConnect {
     public static final String manajerKaryawanTetap = "http://"+ip+"//API_Mobile/manajer-karyawan-tetap.php";
     public static final String manajerKaryawanTidakTetap = "http://"+ip+"//API_Mobile/manajer-karyawan-tidak-tetap.php";
     public static final String UrlTambahTugas = "http://"+ip+"//API_Mobile/manajer-tambah-tugas.php";
+    public static final String rekapAbsensi = "http://"+ip+"//API_Mobile/manajer-list-absen.php";
+    public static final String rekapTugas = "http://"+ip+"//API_Mobile/manajer-list-tugas.php";
 
 }

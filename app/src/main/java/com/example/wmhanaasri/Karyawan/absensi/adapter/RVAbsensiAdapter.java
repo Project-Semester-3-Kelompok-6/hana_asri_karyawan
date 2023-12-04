@@ -54,12 +54,12 @@ public class RVAbsensiAdapter extends RecyclerView.Adapter<RVAbsensiAdapter.View
             }
         });
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Oke", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        holder.cardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(view.getContext(), "Oke", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     @Override
