@@ -54,7 +54,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/textJudul"
+            android:id="@+id/et_judulTugasManajer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Judul"
@@ -71,7 +71,7 @@
             app:boxCornerRadiusTopStart="15dp">
 
             <EditText
-                android:id="@+id/deskripsi"
+                android:id="@+id/et_deskripsiTugasManajer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
@@ -88,7 +88,7 @@
             android:layout_marginTop="10dp">
 
             <AutoCompleteTextView
-                android:id="@+id/dropDivisi"
+                android:id="@+id/dropdown_divisiTugasManajer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -104,7 +104,7 @@
             android:layout_marginTop="10dp">
 
             <AutoCompleteTextView
-                android:id="@+id/dropTujuan"
+                android:id="@+id/dropdown_karyawan"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -114,7 +114,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <EditText
-            android:id="@+id/tenggat"
+            android:id="@+id/et_tangggalTugasManajer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

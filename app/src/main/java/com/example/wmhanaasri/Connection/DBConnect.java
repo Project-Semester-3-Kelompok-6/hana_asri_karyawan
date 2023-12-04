@@ -23,6 +23,7 @@ public class DBConnect {
 
     //Manajer URL
     public static final String getDevisi = "http://"+ip+"//API_Mobile/getDevisi.php";
+    public static final String getKaryawan = "http://"+ip+"//API_Mobile/getKaryawan.php";
     public static final String UrlTambahKaryawan = "http://"+ip+"//API_Mobile/tambah-akun.php";
     public static final String tugasManajerSedang = "http://"+ip+"//API_Mobile/manajer-tugas-sedang.php";
     public static final String tugasManajerSelesai = "http://"+ip+"//API_Mobile/manajer-tugas-selesai.php";
