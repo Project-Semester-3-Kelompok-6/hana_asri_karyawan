@@ -83,6 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
+            android:focusable="false"
             android:hint="Awal Sesi"
             android:inputType="text"/>
 
@@ -91,11 +92,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
+            android:focusable="false"
             android:hint="Akhir Sesi"
             android:inputType="text"/>
 
         <Button
-            android:id="@+id/btnTambahkan"
+            android:id="@+id/btnTambahkanSesi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"

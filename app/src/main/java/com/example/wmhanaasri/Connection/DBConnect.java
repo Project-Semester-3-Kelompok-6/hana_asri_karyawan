@@ -33,5 +33,6 @@ public class DBConnect {
     public static final String UrlTambahTugas = "http://"+ip+"//API_Mobile/manajer-tambah-tugas.php";
     public static final String rekapAbsensi = "http://"+ip+"//API_Mobile/manajer-list-absen.php";
     public static final String rekapTugas = "http://"+ip+"//API_Mobile/manajer-list-tugas.php";
+    public static final String tambahSesi = "http://"+ip+"//API_Mobile/manajer-tambah-sesi.php";
 
 }
