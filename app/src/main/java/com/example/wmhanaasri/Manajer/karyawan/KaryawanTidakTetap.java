@@ -42,7 +42,7 @@ public class KaryawanTidakTetap extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout._manajer_fragment_karyawan_tidak_tetap, container, false);
-        sharedPreferences = requireActivity().getSharedPreferences("manajerkaryawankontak", Context.MODE_PRIVATE);
+        sharedPreferences = requireActivity().getSharedPreferences("manajerkaryawan", Context.MODE_PRIVATE);
 
         fetchData(); // Fetch data from server
 
@@ -73,8 +73,6 @@ public class KaryawanTidakTetap extends Fragment {
                                     editor.putString("DevisiID" + i, obj.getString("DevisiID"));
                                 }
                                 editor.apply();
-                                Toast.makeText(requireContext(), "Diperbarui", Toast.LENGTH_SHORT).show();
-
                                 // Hitung jumlah data yang disimpan dalam SharedPreferences
                                 int dataSize = 0;
                                 while (sharedPreferences.contains("UserID" + dataSize)) {
