@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.wmhanaasri.Connection.DBConnect;
+import com.example.wmhanaasri.Karyawan.tugas.adapter.RVSedangDikerjakanAdapter;
 import com.example.wmhanaasri.Karyawan.tugas.adapter.RVSelesaiDikerjakanAdapter;
 import com.example.wmhanaasri.R;
 
@@ -31,8 +32,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KaryawanSedangDikerjakan extends Fragment {
-    private SharedPreferences sharedPreferences;
-    private RVSelesaiDikerjakanAdapter adapter;
+    private SharedPreferences sharedPreferences2;
+    private RVSedangDikerjakanAdapter adapter;
 
     public KaryawanSedangDikerjakan() {
         // Required empty public constructor
@@ -42,7 +43,7 @@ public class KaryawanSedangDikerjakan extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout._karyawan_fragment_karyawan_sedang_dikerjakan, container, false);
-        sharedPreferences = requireActivity().getSharedPreferences("tugasselesai", Context.MODE_PRIVATE);
+        sharedPreferences2 = requireActivity().getSharedPreferences("tugassedangkaryawan", Context.MODE_PRIVATE);
 
         fetchData(); // Fetch data from server
 
@@ -59,7 +60,7 @@ public class KaryawanSedangDikerjakan extends Fragment {
                             JSONArray dataArray = new JSONArray(response);
 
                             if (dataArray.length() > 0) {
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                SharedPreferences.Editor editor = sharedPreferences2.edit();
 
                                 // Ambil data dari setiap objek JSON dalam array dan simpan dalam SharedPreferences
                                 for (int i = 0; i < dataArray.length(); i++) {
@@ -78,7 +79,7 @@ public class KaryawanSedangDikerjakan extends Fragment {
 
                                 // Hitung jumlah data yang disimpan dalam SharedPreferences
                                 int dataSize = 0;
-                                while (sharedPreferences.contains("Judul" + dataSize)) {
+                                while (sharedPreferences2.contains("Judul" + dataSize)) {
                                     dataSize++;
                                 }
 
@@ -108,7 +109,7 @@ public class KaryawanSedangDikerjakan extends Fragment {
     }
 
     private void setupRecyclerView(int dataSize) {
-        adapter = new RVSelesaiDikerjakanAdapter(requireContext(), dataSize);
+        adapter = new RVSedangDikerjakanAdapter(requireContext(), dataSize);
         RecyclerView recyclerView = getView().findViewById(R.id.rv_karyawanSedangDikerjakan);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);

@@ -6,9 +6,10 @@
     tools:context=".Manajer.tugas.TugasManajerDitugaskan">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_tugasSedangDikerjakanManajer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Dikerjakan" />
+        android:layout_margin="10dp" />
 
 </FrameLayout>
