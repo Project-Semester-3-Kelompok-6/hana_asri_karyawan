@@ -21,6 +21,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Karyawan.tugas.UpdateStatusTugas"
+            android:exported="false" />
+        <activity
             android:name=".Manajer.karyawan.TambahDevisiActivity"
             android:exported="false" />
         <activity

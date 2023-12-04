@@ -1,6 +1,7 @@
 package com.example.wmhanaasri.Karyawan.tugas.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wmhanaasri.Karyawan.tugas.UpdateStatusTugas;
 import com.example.wmhanaasri.R;
 
 public class RVSedangDikerjakanAdapter extends RecyclerView.Adapter<RVSedangDikerjakanAdapter.ViewHolder> {
@@ -45,7 +47,10 @@ public class RVSedangDikerjakanAdapter extends RecyclerView.Adapter<RVSedangDike
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), judul, Toast.LENGTH_SHORT).show();
+                // Mengirim data judul ke activity baru saat card diklik
+                Intent intent = new Intent(view.getContext(), UpdateStatusTugas.class);
+                intent.putExtra("judul", judul);
+                view.getContext().startActivity(intent);
             }
         });
     }

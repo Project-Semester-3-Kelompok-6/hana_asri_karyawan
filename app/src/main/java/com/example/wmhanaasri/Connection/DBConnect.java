@@ -20,6 +20,7 @@ public class DBConnect {
     public static final String perizinan = "http://"+ip+"//API_Mobile/perizinan.php";
     public static final String listIzin = "http://"+ip+"//API_Mobile/list-perizinan.php";
     public static final String listAbsensi = "http://"+ip+"//API_Mobile/list-absensi.php";
+    public static final String DoneTugas = "http://"+ip+"//API_Mobile/karyawan-set-tugas.php";
 
     //Manajer URL
     public static final String getDevisi = "http://"+ip+"//API_Mobile/getDevisi.php";
