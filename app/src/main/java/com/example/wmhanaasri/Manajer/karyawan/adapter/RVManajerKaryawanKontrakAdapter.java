@@ -26,14 +26,14 @@ public class RVManajerKaryawanKontrakAdapter extends RecyclerView.Adapter<RVMana
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RVManajerKaryawanKontrakAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.list_item_manajer_karyawan_tidak_tetap, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RVManajerKaryawanKontrakAdapter.ViewHolder holder, int position) {
         String id = sharedPreferences.getString("UserID" + position, "");
         String nama = sharedPreferences.getString("Nama" + position, "");
         String email = sharedPreferences.getString("Email" + position, "");

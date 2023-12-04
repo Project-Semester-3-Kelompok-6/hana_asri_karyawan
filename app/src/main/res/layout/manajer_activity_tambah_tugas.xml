@@ -121,7 +121,7 @@
             android:hint="Tenggat"/>
 
         <Button
-            android:id="@+id/btnTugaskan"
+            android:id="@+id/btnTambahTugasManajer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"

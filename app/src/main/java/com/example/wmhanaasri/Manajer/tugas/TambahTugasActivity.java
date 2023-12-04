@@ -4,14 +4,17 @@ import static androidx.core.content.ContentProviderCompat.requireContext;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.Request;
@@ -66,6 +69,8 @@ public class TambahTugasActivity extends AppCompatActivity {
         editTextJudul = findViewById(R.id.et_judulTugasManajer);
         editTextDeskripsi = findViewById(R.id.et_deskripsiTugasManajer);
         etTanggalTugasManajer = findViewById(R.id.et_tangggalTugasManajer);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+        Button btnTambahTugas = findViewById(R.id.btnTambahTugasManajer);
 
         // Mendapatkan tanggal sekarang
         final Calendar calendar = Calendar.getInstance();
@@ -85,6 +90,14 @@ public class TambahTugasActivity extends AppCompatActivity {
                     }, year, month, day);
             datePickerDialog.show();
         });
+
+        btnTambahTugas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
+
 
 
     }

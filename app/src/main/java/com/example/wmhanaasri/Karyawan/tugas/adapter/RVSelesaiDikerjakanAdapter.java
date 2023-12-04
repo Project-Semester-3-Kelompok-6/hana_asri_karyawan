@@ -26,14 +26,14 @@ public class RVSelesaiDikerjakanAdapter extends RecyclerView.Adapter<RVSelesaiDi
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RVSelesaiDikerjakanAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.list_item_karyawan_tugasdikerjakan, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RVSelesaiDikerjakanAdapter.ViewHolder holder, int position) {
         String judul = sharedPreferences.getString("Judul" + position, "");
         String deskripsi = sharedPreferences.getString("Deskripsi" + position, "");
         String tanggal = sharedPreferences.getString("Tanggal" + position, "");

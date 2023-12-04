@@ -29,7 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class KaryawanTidakTetap extends Fragment {
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferencesTidakTetap;
     private RVManajerKaryawanAdapter adapter;
 
     public KaryawanTidakTetap() {
@@ -42,7 +42,7 @@ public class KaryawanTidakTetap extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout._manajer_fragment_karyawan_tidak_tetap, container, false);
-        sharedPreferences = requireActivity().getSharedPreferences("manajerkaryawan", Context.MODE_PRIVATE);
+        sharedPreferencesTidakTetap = requireActivity().getSharedPreferences("manajerkaryawantetap", Context.MODE_PRIVATE);
 
         fetchData(); // Fetch data from server
 
@@ -59,7 +59,7 @@ public class KaryawanTidakTetap extends Fragment {
                             JSONArray dataArray = new JSONArray(response);
 
                             if (dataArray.length() > 0) {
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                SharedPreferences.Editor editor = sharedPreferencesTidakTetap.edit();
 
                                 // Ambil data dari setiap objek JSON dalam array dan simpan dalam SharedPreferences
                                 for (int i = 0; i < dataArray.length(); i++) {
@@ -75,7 +75,7 @@ public class KaryawanTidakTetap extends Fragment {
                                 editor.apply();
                                 // Hitung jumlah data yang disimpan dalam SharedPreferences
                                 int dataSize = 0;
-                                while (sharedPreferences.contains("UserID" + dataSize)) {
+                                while (sharedPreferencesTidakTetap.contains("UserID" + dataSize)) {
                                     dataSize++;
                                 }
 
