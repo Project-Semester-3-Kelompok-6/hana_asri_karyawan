@@ -16,12 +16,14 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.wmhanaasri.Connection.DBConnect;
 import com.example.wmhanaasri.R;
@@ -35,7 +37,9 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class TambahTugasActivity extends AppCompatActivity {
@@ -48,7 +52,6 @@ public class TambahTugasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manajer_activity_tambah_tugas);
-        fetchData();
         AutoCompleteTextView dropDivisi = findViewById(R.id.dropdown_divisiTugasManajer);
         AutoCompleteTextView dropKaryawan = findViewById(R.id.dropdown_karyawan);
 
@@ -69,7 +72,6 @@ public class TambahTugasActivity extends AppCompatActivity {
         editTextJudul = findViewById(R.id.et_judulTugasManajer);
         editTextDeskripsi = findViewById(R.id.et_deskripsiTugasManajer);
         etTanggalTugasManajer = findViewById(R.id.et_tangggalTugasManajer);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
         Button btnTambahTugas = findViewById(R.id.btnTambahTugasManajer);
 
         // Mendapatkan tanggal sekarang
@@ -85,8 +87,11 @@ public class TambahTugasActivity extends AppCompatActivity {
             // Munculkan DatePickerDialog saat EditText diklik
             datePickerDialog = new DatePickerDialog(TambahTugasActivity.this,
                     (view, year, monthOfYear, dayOfMonth) -> {
-                        // Set Tanggal yang dipilih ke dalam EditText
-                        etTanggalTugasManajer.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        // Set Tanggal yang dipilih ke dalam EditText dengan format YYYY-MM-DD
+                        String formattedMonth = String.format("%02d", monthOfYear + 1);
+                        String formattedDayOfMonth = String.format("%02d", dayOfMonth);
+                        String selectedDate = year + "-" + formattedMonth + "-" + formattedDayOfMonth;
+                        etTanggalTugasManajer.setText(selectedDate);
                     }, year, month, day);
             datePickerDialog.show();
         });
@@ -94,65 +99,60 @@ public class TambahTugasActivity extends AppCompatActivity {
         btnTambahTugas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                String judul = editTextJudul.getText().toString().trim();
+                String deskripsi = editTextDeskripsi.getText().toString().trim();
+                String tanggal = etTanggalTugasManajer.getText().toString().trim();
+                String devisi = dropDivisi.getText().toString().trim();
+                String karyawan = dropKaryawan.getText().toString();
+                // Mengambil hanya satu karakter pertama dari teks
+
+                String status = "Task";
+
+                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, DBConnect.UrlTambahTugas,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject jsonResponse = new JSONObject(response);
+                                    boolean success = jsonResponse.getBoolean("success");
+                                    String message = jsonResponse.getString("message");
+
+                                    if (success) {
+                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                        onBackPressed();
+                                        finish();
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Error: " + error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("Judul", judul);
+                        params.put("Deskripsi", deskripsi);
+                        params.put("DevisiID", "1");
+                        params.put("KaryawanID", "1");
+                        params.put("Tanggal", tanggal);
+                        params.put("Status", status);
+                        return params;
+                    }
+                };
+
+                queue.add(stringRequest);
             }
         });
 
 
 
-    }
-    public void fetchData() {
-        RequestQueue requestQueue = Volley.newRequestQueue(this); // Menggunakan "this" karena berada dalam Activity
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                DBConnect.getKaryawan, // Ubah URL ini sesuai dengan lokasi API PHP Anda
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Set<String> karyawanSet = new HashSet<>();
-
-                        try {
-                            // Ambil data dari respons JSON
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject karyawan = response.getJSONObject(i);
-                                String userID = karyawan.getString("UserID");
-                                String nama = karyawan.getString("Nama");
-
-                                // Gabungkan UserID dan Nama dalam satu string
-                                String karyawanData = userID + "-" + nama;
-
-                                // Tambahkan ke dalam Set
-                                karyawanSet.add(karyawanData);
-                            }
-
-                            // Simpan Set ke dalam SharedPreferences
-                            SharedPreferences sharedPreferences = getSharedPreferences("getKaryawan", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putStringSet("karyawan_set", karyawanSet);
-                            editor.apply();
-
-                            // Tampilkan dalam logcat untuk memeriksa hasil
-                            Log.d("KaryawanSet", karyawanSet.toString());
-
-                            // Setelah menyimpan data, pindah ke TambahTugasActivity
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle kesalahan pada request
-                        error.printStackTrace();
-                    }
-                }
-        );
-
-        // Tambahkan request ke dalam antrian
-        requestQueue.add(jsonArrayRequest);
     }
 }

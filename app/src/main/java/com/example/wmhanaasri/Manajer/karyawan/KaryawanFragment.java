@@ -121,6 +121,7 @@ public class KaryawanFragment extends Fragment {
                     btnTambahDevisi.setVisibility(View.GONE);
                     aBoolean = true;
                 }
+                fetchData();
             }
         });
 
@@ -204,4 +205,59 @@ public class KaryawanFragment extends Fragment {
 
         return view;
     }
+    public void fetchData() {
+        RequestQueue requestQueue = Volley.newRequestQueue(requireContext()); // Menggunakan "requireContext()" untuk mendapatkan Context dari Fragment
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                DBConnect.getKaryawan, // Ubah URL ini sesuai dengan lokasi API PHP Anda
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Set<String> karyawanSet = new HashSet<>();
+
+                        try {
+                            // Ambil data dari respons JSON
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject karyawan = response.getJSONObject(i);
+                                String userID = karyawan.getString("UserID");
+                                String nama = karyawan.getString("Nama");
+
+                                // Gabungkan UserID dan Nama dalam satu string
+                                String karyawanData = userID + "-" + nama;
+
+                                // Tambahkan ke dalam Set
+                                karyawanSet.add(karyawanData);
+                            }
+
+                            // Simpan Set ke dalam SharedPreferences
+                            SharedPreferences sharedPreferences = requireContext().getSharedPreferences("getKaryawan", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putStringSet("karyawan_set", karyawanSet);
+                            editor.apply();
+
+                            // Tampilkan dalam logcat untuk memeriksa hasil
+                            Log.d("KaryawanSet", karyawanSet.toString());
+
+                            // Setelah menyimpan data, lakukan apa yang perlu dilakukan dengan data tersebut dalam Fragment
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle kesalahan pada request
+                        error.printStackTrace();
+                    }
+                }
+        );
+
+        // Tambahkan request ke dalam antrian
+        requestQueue.add(jsonArrayRequest);
+    }
+
 }
