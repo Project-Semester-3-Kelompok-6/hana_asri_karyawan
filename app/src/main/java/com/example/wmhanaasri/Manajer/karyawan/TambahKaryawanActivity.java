@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -48,6 +50,16 @@ public class TambahKaryawanActivity extends AppCompatActivity {
         AutoCompleteTextView dropStatus = findViewById(R.id.dropStatus);
         AutoCompleteTextView dropDivisi = findViewById(R.id.dropDivisi);
 
+        CheckBox showPasswordCheckbox = findViewById(R.id.showPasswordCheckbox);
+        showPasswordCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                etPassword.setInputType(InputType.TYPE_CLASS_TEXT);
+            } else {
+                etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            }
+            etPassword.setSelection(etPassword.getText().length());
+        });
+
         //set dropRole
         String[] roleOptions = {"Manajer", "Karyawan"};
 
@@ -74,9 +86,22 @@ public class TambahKaryawanActivity extends AppCompatActivity {
         btnTambahkan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String password = etPassword.getText().toString().trim();
+
+                if (password.isEmpty()) {
+                    etPassword.setError("Masukkan Password Baru");
+                    etPassword.requestFocus();
+                    return;
+                }
+
+                if (password.length() < 8) {
+                    etPassword.setError("Password minimal 8 karakter");
+                    etPassword.requestFocus();
+                    return;
+                }
                 String nama = etNama.getText().toString().trim();
                 String email = etEmail.getText().toString().trim();
-                String password = etPassword.getText().toString().trim();
+                //password sudah diatas
                 String role = dropRole.getText().toString();
                 String status = dropStatus.getText().toString();
                 String devisiID = "1"; // Ganti dengan nilai yang sesuai dengan id devisi yang dipilih

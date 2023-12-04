@@ -38,6 +38,7 @@ public class OTP extends AppCompatActivity {
         Button button = findViewById(R.id.btnUbahPassword);
         ProgressBar progressBar = findViewById(R.id.progress);
 
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,8 +60,8 @@ public class OTP extends AppCompatActivity {
                     return;
                 }
 
-                if (password.length() < 6) {
-                    editTextNewPassword.setError("Password minimal 6 karakter");
+                if (password.length() < 8) {
+                    editTextNewPassword.setError("Password minimal 8 karakter");
                     editTextNewPassword.requestFocus();
                     return;
                 }
