@@ -20,8 +20,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.wmhanaasri.Connection.DBConnect;
-import com.example.wmhanaasri.Karyawan.tugas.adapter.ListData;
-import com.example.wmhanaasri.Karyawan.tugas.adapter.RVSedangDikerjakanAdapter;
 import com.example.wmhanaasri.Karyawan.tugas.adapter.RVSelesaiDikerjakanAdapter;
 import com.example.wmhanaasri.R;
 
@@ -34,7 +32,7 @@ import java.util.Map;
 
 public class KaryawanSelesaiDikerjakan extends Fragment {
     private SharedPreferences sharedPreferencesSelesai;
-    private RVSedangDikerjakanAdapter adapter;
+    private RVSelesaiDikerjakanAdapter adapter;
 
     public KaryawanSelesaiDikerjakan() {
         // Required empty public constructor
@@ -44,7 +42,7 @@ public class KaryawanSelesaiDikerjakan extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout._karyawan_fragment_karyawan_selesai_dikerjakan, container, false);
-        sharedPreferencesSelesai = requireActivity().getSharedPreferences("tugassedangkaryawan", Context.MODE_PRIVATE);
+        sharedPreferencesSelesai = requireActivity().getSharedPreferences("tugasselesaikaryawan", Context.MODE_PRIVATE);
 
         fetchData(); // Fetch data from server
 
@@ -110,7 +108,7 @@ public class KaryawanSelesaiDikerjakan extends Fragment {
     }
 
     private void setupRecyclerView(int dataSize) {
-        adapter = new RVSedangDikerjakanAdapter(requireContext(), dataSize);
+        adapter = new RVSelesaiDikerjakanAdapter(requireContext(), dataSize);
         RecyclerView recyclerView = getView().findViewById(R.id.rv_karyawanSelesaiDikerjakan);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);

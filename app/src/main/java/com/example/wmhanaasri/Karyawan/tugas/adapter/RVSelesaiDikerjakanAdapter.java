@@ -21,14 +21,14 @@ public class RVSelesaiDikerjakanAdapter extends RecyclerView.Adapter<RVSelesaiDi
 
     public RVSelesaiDikerjakanAdapter(Context context, int dataSize) {
         this.dataSize = dataSize;
-        sharedPreferences = context.getSharedPreferences("tugasselesai", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("tugasselesaikaryawan", Context.MODE_PRIVATE);
     }
 
     @NonNull
     @Override
     public RVSelesaiDikerjakanAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.list_item_karyawan_tugasdikerjakan, parent, false);
+        View view = layoutInflater.inflate(R.layout.list_item_karyawan_tugas_done, parent, false);
         return new ViewHolder(view);
     }
 
@@ -63,10 +63,10 @@ public class RVSelesaiDikerjakanAdapter extends RecyclerView.Adapter<RVSelesaiDi
 
         public ViewHolder(View view) {
             super(view);
-            this.judul = view.findViewById(R.id.tv_judulTugas);
-            this.deskripsi = view.findViewById(R.id.tv_deskripsiTugas);
-            this.tanggal = view.findViewById(R.id.tv_tanggalTugas);
-            this.cardView = view.findViewById(R.id.cardView);
+            this.judul = view.findViewById(R.id.tv_judulTugasKaryawnKontrak);
+            this.deskripsi = view.findViewById(R.id.tv_deskripsiTugasKaryawanKontrak);
+            this.tanggal = view.findViewById(R.id.tv_tanggalTugasKaryawanKontrak);
+            this.cardView = view.findViewById(R.id.cardViewKaryawanKontrak);
         }
     }
 }

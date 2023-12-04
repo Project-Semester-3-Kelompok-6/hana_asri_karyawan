@@ -63,10 +63,10 @@ public class RVManajerKaryawanKontrakAdapter extends RecyclerView.Adapter<RVMana
 
         public ViewHolder(View view) {
             super(view);
-            this.idKontrak = view.findViewById(R.id.tv_userIDManajerKaryawanTetap);
-            this.namaKontrak = view.findViewById(R.id.tv_namaManajerKaryawanTetap);
-            this.emailKontrak = view.findViewById(R.id.tv_emailManajerKaryawanTetap);
-            this.cardView = view.findViewById(R.id.cardViewManajerKaryawanTetap);
+            this.idKontrak = view.findViewById(R.id.tv_userIDManajerKaryawanTidakTetap);
+            this.namaKontrak = view.findViewById(R.id.tv_namaManajerKaryawanTidakTetap);
+            this.emailKontrak = view.findViewById(R.id.tv_emailManajerKaryawanTidakTetap);
+            this.cardView = view.findViewById(R.id.cardViewManajerKaryawanTidakTetap);
         }
     }
 

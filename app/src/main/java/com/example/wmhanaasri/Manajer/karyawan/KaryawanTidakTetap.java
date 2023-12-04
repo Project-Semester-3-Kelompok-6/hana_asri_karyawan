@@ -30,7 +30,7 @@ import org.json.JSONObject;
 
 public class KaryawanTidakTetap extends Fragment {
     private SharedPreferences sharedPreferencesTidakTetap;
-    private RVManajerKaryawanAdapter adapter;
+    private RVManajerKaryawanKontrakAdapter adapter;
 
     public KaryawanTidakTetap() {
         // Required empty public constructor
@@ -42,7 +42,7 @@ public class KaryawanTidakTetap extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout._manajer_fragment_karyawan_tidak_tetap, container, false);
-        sharedPreferencesTidakTetap = requireActivity().getSharedPreferences("manajerkaryawantetap", Context.MODE_PRIVATE);
+        sharedPreferencesTidakTetap = requireActivity().getSharedPreferences("manajerkaryawankontrak", Context.MODE_PRIVATE);
 
         fetchData(); // Fetch data from server
 
@@ -99,7 +99,7 @@ public class KaryawanTidakTetap extends Fragment {
     }
 
     private void setupRecyclerView(int dataSize) {
-        adapter = new RVManajerKaryawanAdapter(requireContext(), dataSize);
+        adapter = new RVManajerKaryawanKontrakAdapter(requireContext(), dataSize);
         RecyclerView recyclerView = getView().findViewById(R.id.rv_karyawanManajerTidakTetap);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);
