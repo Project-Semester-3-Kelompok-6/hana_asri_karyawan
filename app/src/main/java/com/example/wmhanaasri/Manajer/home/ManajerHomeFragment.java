@@ -16,9 +16,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wmhanaasri.Karyawan.home.KaryawanMainActivity;
 import com.example.wmhanaasri.ListAktivitas;
 import com.example.wmhanaasri.Login.LoginActivity;
 import com.example.wmhanaasri.Manajer.AktifitasAdapter;
+import com.example.wmhanaasri.Manajer.MainActivity;
 import com.example.wmhanaasri.Manajer.PresensiFragment;
 import com.example.wmhanaasri.R;
 
@@ -91,17 +93,29 @@ public class ManajerHomeFragment extends Fragment {
         imgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Buat objek PresensiFragment
-                PresensiFragment presensiFragment = new PresensiFragment();
 
-                // Ganti tampilan fragmen dalam wadah (FrameLayout) dengan fragmen PresensiFragment
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.flFragment, presensiFragment);
-                transaction.addToBackStack(null); // Untuk menambahkan ke back stack
-                transaction.commit();
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).switchToRekapFragment();
+                }
+//                // Buat objek PresensiFragment
+//                PresensiFragment presensiFragment = new PresensiFragment();
+//
+//                // Ganti tampilan fragmen dalam wadah (FrameLayout) dengan fragmen PresensiFragment
+//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.flFragment, presensiFragment);
+//                transaction.addToBackStack(null); // Untuk menambahkan ke back stack
+//                transaction.commit();
             }
         });
 
+        btnTugas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).switchToRekapFragment();
+                }
+            }
+        });
 
         // view
         return view;

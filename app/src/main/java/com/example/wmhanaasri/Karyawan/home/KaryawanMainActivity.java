@@ -46,6 +46,9 @@ public class KaryawanMainActivity extends AppCompatActivity implements Navigatio
         ViewPagerAdapter adapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(adapter);
     }
+    public void switchToTugasFragment() {
+        bottomNavigationView.setSelectedItemId(R.id.tugas);
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment selectedFragment = null;

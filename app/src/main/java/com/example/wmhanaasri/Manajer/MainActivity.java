@@ -78,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 //        return false;
 //    }
 
+    public void switchToRekapFragment() {
+        bottomNavigationView.setSelectedItemId(R.id.rekapManajer);
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment selectedFragment = null;
