@@ -39,6 +39,7 @@ public class RVSedangDikerjakanAdapter extends RecyclerView.Adapter<RVSedangDike
         String judul = sharedPreferences.getString("Judul" + position, "");
         String deskripsi = sharedPreferences.getString("Deskripsi" + position, "");
         String tanggal = sharedPreferences.getString("Tanggal" + position, "");
+        String JobID = sharedPreferences.getString("JobID" + position,"");
 
         holder.judul.setText(judul);
         holder.deskripsi.setText(deskripsi);
@@ -49,7 +50,7 @@ public class RVSedangDikerjakanAdapter extends RecyclerView.Adapter<RVSedangDike
             public void onClick(View view) {
                 // Mengirim data judul ke activity baru saat card diklik
                 Intent intent = new Intent(view.getContext(), UpdateStatusTugas.class);
-                intent.putExtra("judul", judul);
+                intent.putExtra("JobID", JobID);
                 view.getContext().startActivity(intent);
             }
         });

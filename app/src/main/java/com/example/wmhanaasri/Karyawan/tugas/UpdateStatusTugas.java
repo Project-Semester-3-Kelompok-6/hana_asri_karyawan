@@ -50,8 +50,9 @@ public class UpdateStatusTugas extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        String judul = intent.getStringExtra("judul");
+        String JobID = intent.getStringExtra("JobID");
 
+// ...
         btnSelesai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,17 +88,13 @@ public class UpdateStatusTugas extends AppCompatActivity {
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
-                        params.put("Judul", judul);
+                        params.put("JobID", JobID);
                         params.put("image", finalBase64Image);
                         return params;
                     }
                 };
 
-                stringRequest.setShouldCache(false);
-                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                        0,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                // ...
 
                 if (bitmap != null || base64Image.isEmpty()) {
                     Volley.newRequestQueue(getApplicationContext()).add(stringRequest);
@@ -106,6 +103,7 @@ public class UpdateStatusTugas extends AppCompatActivity {
                 }
             }
         });
+// ...
     }
 
     private void showFileOptions() {

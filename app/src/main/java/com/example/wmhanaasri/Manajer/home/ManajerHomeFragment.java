@@ -10,30 +10,45 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.wmhanaasri.Connection.DBConnect;
 import com.example.wmhanaasri.Karyawan.home.KaryawanMainActivity;
+import com.example.wmhanaasri.Karyawan.home.adapter.RVHomeKaryawan;
 import com.example.wmhanaasri.ListAktivitas;
 import com.example.wmhanaasri.Login.LoginActivity;
 import com.example.wmhanaasri.Manajer.AktifitasAdapter;
 import com.example.wmhanaasri.Manajer.MainActivity;
 import com.example.wmhanaasri.Manajer.PresensiFragment;
+import com.example.wmhanaasri.Manajer.home.adapter.RVHomeManajer;
 import com.example.wmhanaasri.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class ManajerHomeFragment extends Fragment {
     private RecyclerView recyclerView;
-    private AktifitasAdapter adapter;
+
     private ArrayList<ListAktivitas> AktifitasArrayList;
     private ImageView imgView,btnTugas,btnProfile;
     private TextView textView;
     private TextView textViewNamaManajer,textViewJabatanManajer;
-    SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferencesHomeManajer;
+    private RVHomeManajer adapter;
 
 
     public ManajerHomeFragment() {
@@ -58,25 +73,9 @@ public class ManajerHomeFragment extends Fragment {
         String jabatan = preferences.getString("jabatan", "");
         textViewNamaManajer.setText(nama);
         textViewJabatanManajer.setText(jabatan);
+        sharedPreferencesHomeManajer = requireActivity().getSharedPreferences("homemanajer", Context.MODE_PRIVATE);
+        fetchData(requireContext());
 
-
-        recyclerView = view.findViewById(R.id.recycle_viewHome);
-
-        // Membuat objek ArrayList Aktifitas
-        AktifitasArrayList = new ArrayList<ListAktivitas>();
-
-        // Menambahkan data ke ArrayList Aktifitas
-        addData();
-
-        // Membuat dan mengatur adapter
-        adapter = new AktifitasAdapter(AktifitasArrayList);
-
-        // Membuat dan mengatur layout manager
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()); // Gunakan getActivity() karena Anda berada dalam fragmen
-
-        // Mengatur layout manager dan adapter untuk RecyclerView
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
 
         imgView = view.findViewById(R.id.btnPresensi);
         btnTugas = view.findViewById(R.id.btnTugas);
@@ -121,13 +120,62 @@ public class ManajerHomeFragment extends Fragment {
         return view;
     }
 
+    public void fetchData(Context context) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, DBConnect.rekapTugas,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray dataArray = new JSONArray(response);
 
+                            if (dataArray.length() > 0) {
+                                SharedPreferences.Editor editor = sharedPreferencesHomeManajer.edit();
 
-    void addData(){
-        AktifitasArrayList = new ArrayList<>();
-        AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Upload Menu Baru", "Gilang", "14 Oktober 2023"));
-        AktifitasArrayList.add(new ListAktivitas("Restok Bahan", "Rizqi", "15 Oktober 2023"));
+                                for (int i = 0; i < dataArray.length(); i++) {
+                                    JSONObject obj = dataArray.getJSONObject(i);
+                                    editor.putString("JobID" + i, obj.getString("JobID"));
+                                    editor.putString("Judul" + i, obj.getString("Judul"));
+                                    editor.putString("Deskripsi" + i, obj.getString("Deskripsi"));
+                                    editor.putString("DevisiID" + i, obj.getString("DevisiID"));
+                                    editor.putString("KaryawanID" + i, obj.getString("KaryawanID"));
+                                    editor.putString("Tanggal" + i, obj.getString("Tanggal"));
+                                    editor.putString("Status" + i, obj.getString("Status"));
+                                    editor.putString("BuktiFoto" + i, obj.getString("BuktiFoto"));
+                                }
+                                editor.apply();
+                                Toast.makeText(context, "Diperbarui", Toast.LENGTH_SHORT).show();
+
+                                int dataSize = 0;
+                                while (sharedPreferencesHomeManajer.contains("Judul" + dataSize)) {
+                                    dataSize++;
+                                }
+
+                                setupRecyclerView(dataSize);
+                            } else {
+                                Toast.makeText(context, "Tidak ada data yang diterima", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(context, "Terjadi kesalahan dalam pengolahan data JSON", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Toast.makeText(context, "Gagal melakukan request data dari server", Toast.LENGTH_SHORT).show();
+            }
+        });
+        queue.add(stringRequest);
     }
+
+    private void setupRecyclerView(int dataSize) {
+        adapter = new RVHomeManajer(requireContext(), dataSize);
+        RecyclerView recyclerView = getView().findViewById(R.id.recycle_viewHome);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setAdapter(adapter);
+    }
+
+
 }
